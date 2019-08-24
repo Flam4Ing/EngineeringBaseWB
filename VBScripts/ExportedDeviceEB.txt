@@ -1,0 +1,9 @@
+﻿+TEST DEVICE#-K31.00
+-K31.00
+C:\Users\heinrich\Desktop\FreeCAD18\Mod\!EngineeringBase\TerminalBlocks\S200.step
+33
+100
+120
+00000000-0000-0000-0000-000004A397A3
+CPU340-20 Ethernet+CANopen
+1

@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="48"
+   height="48"
+   id="svg3336"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   viewBox="0 0 48 48"
+   sodipodi:docname="Assembly_Add_New_Part.svg">
+  <title
+     id="title3335">FreeCAD Icon Pack v0.5LA</title>
+  <defs
+     id="defs3338" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.61871843"
+     inkscape:cx="63.221639"
+     inkscape:cy="446.52965"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     inkscape:grid-bbox="true"
+     inkscape:document-units="px"
+     inkscape:window-width="1920"
+     inkscape:window-height="1003"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid3344"
+       spacingx="6"
+       spacingy="6"
+       dotted="false"
+       empspacing="4"
+       empcolor="#3f3fff"
+       empopacity="0.18823529"
+       color="#3f3fff"
+       opacity="0.07843137" />
+    <inkscape:grid
+       type="xygrid"
+       id="grid3346"
+       empspacing="48"
+       spacingx="1"
+       spacingy="1"
+       empcolor="#754dff"
+       empopacity="0.25098039"
+       color="#3f3fff"
+       opacity="0.07843137" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata3341">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>FreeCAD Icon Pack v0.5LA</dc:title>
+        <cc:license
+           rdf:resource="https://creativecommons.org/licenses/by-nc-sa/4.0/" />
+        <dc:date>2019</dc:date>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Paul Kotelevets (1D_Inc)</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:identifier>Light simple theme A</dc:identifier>
+        <dc:description>FreeCAD Icon Pack  
+/black 373e48ff /orange fe6501ff /red d40000ff /violet d35fbcff 
+/grey 939dacff /blue 0066ffff /green 008066ff</dc:description>
+        <dc:contributor>
+          <cc:Agent>
+            <dc:title>based on Blender 2.8 icon style by Andrzej Ambroz (jendrzych)</dc:title>
+          </cc:Agent>
+        </dc:contributor>
+        <dc:relation>FreeCAD</dc:relation>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1"
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer">
+    <rect
+       y="3.7092896"
+       x="3.894043"
+       height="16.225"
+       width="16.819298"
+       id="rect9598"
+       style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#0066ff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+       inkscape:export-xdpi="78"
+       inkscape:export-ydpi="78" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path9602"
+       d="m 12.3471,26.13538 a 8.0697911,3.484638 0 0 0 -8.0702,3.4851 8.0697911,3.484638 0 0 0 8.0702,3.4842 8.0697911,3.484638 0 0 0 8.0693,-3.4842 8.0697911,3.484638 0 0 0 -8.0693,-3.4851 z"
+       style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#0066ff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+       inkscape:export-xdpi="78.094009"
+       inkscape:export-ydpi="78.094009" />
+    <path
+       sodipodi:nodetypes="csc"
+       inkscape:connector-curvature="0"
+       id="path9604"
+       d="m 20.4164,29.62048 0,10.3656 c 0,1.9243 -3.6131,3.4841 -8.0693,3.4842 -4.4565,10e-5 -8.0702,-1.5598 -8.0702,-3.4842 l 0,-10.3656"
+       style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#0066ff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+       inkscape:export-xdpi="78.094009"
+       inkscape:export-ydpi="78.094009" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path9606"
+       d="m 12.2733,19.93432 0,6.23501"
+       style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#0066ff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+       inkscape:export-xdpi="78"
+       inkscape:export-ydpi="78" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path9847"
+       d="m 20.656,34.91978 9.2361,0"
+       style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#fe6501;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+       inkscape:export-xdpi="78"
+       inkscape:export-ydpi="78" />
+    <circle
+       style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#fe6501;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+       id="circle9594"
+       cx="34.659912"
+       cy="12.669434"
+       r="8.7065125"
+       inkscape:export-xdpi="78.094009"
+       inkscape:export-ydpi="78.094009" />
+    <path
+       id="path9596"
+       style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#fe6501;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+       d="m 34.6467,16.98253 0,-8.647 m 4.3236,4.3235 -8.6469,0"
+       inkscape:connector-curvature="0"
+       inkscape:export-xdpi="78"
+       inkscape:export-ydpi="78" />
+    <path
+       inkscape:connector-curvature="0"
+       d="m 38.5876,28.41199 5.309,11.6429 c 0.8045,1.7643 -3.6131,3.4841 -8.0693,3.4842 -4.4566,10e-5 -8.8748,-1.7198 -8.0703,-3.4842 l 5.3089,-11.6429 m 2.7611,-1.0116 a 2.7608383,1.0115452 0 0 0 -2.7611,1.0116 2.7608383,1.0115452 0 0 0 2.7611,1.0114 2.7608383,1.0115452 0 0 0 2.7606,-1.0114 2.7608383,1.0115452 0 0 0 -2.7606,-1.0116 z"
+       style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#fe6501;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;paint-order:markers fill stroke;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+       id="path9849"
+       inkscape:export-xdpi="78"
+       inkscape:export-ydpi="78" />
+  </g>
+</svg>

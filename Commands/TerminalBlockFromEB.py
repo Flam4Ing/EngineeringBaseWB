@@ -1,0 +1,2 @@
+import clsTerminalBlock
+clsTerminalBlock.GetTerminalBlockFromEB()

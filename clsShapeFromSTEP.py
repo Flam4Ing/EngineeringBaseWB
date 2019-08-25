@@ -2,8 +2,6 @@ import FreeCAD
 import FreeCADGui
 import Part
 import os
-import WBAuxiliaries
-#Test
 
 class ShapeFromSTEP:
     def __init__(self, obj, folderPath):

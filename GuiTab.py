@@ -6,10 +6,10 @@ from PySide import QtCore, QtGui
 import FreeCAD
 import WBAuxiliaries
 
-pathToIcons = WBAuxiliaries.workbenchFolderPath() + "\\" + "Commands"
-iconList = glob.glob1(pathToIcons, "*.png")
-iconList1 = glob.glob1(pathToIcons, "*.svg")
-iconList.extend(iconList1)
+pathToIcons = WBAuxiliaries.workbenchFolderPath() + "\\" + "Icons"
+iconsPNG = glob.glob1(pathToIcons, "*.png")
+iconsSVG = glob.glob1(pathToIcons, "*.svg")
+iconsPNG.extend(iconsSVG)
 
 
 def createDockWindows(mWindow):
@@ -37,7 +37,7 @@ def createDockWindows(mWindow):
     for fileName in fileList:
         item = QtGui.QListWidgetItem(fileName)
         iconPath = pathToIcons + "\\zScriptDefault.svg"
-        for icon in iconList:
+        for icon in iconsPNG:
             index_of_dot = fileName.index('.')
             file_name_without_extension = fileName[:index_of_dot]
 

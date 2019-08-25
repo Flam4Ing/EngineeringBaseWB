@@ -9,12 +9,13 @@ class SelectEBObject:
             WBAuxiliaries.MsgDialog("Please select EB device!")
             return
         sel = FreeCADGui.Selection.getSelection()[0]
-        if str(type(sel)) == "<type 'FeaturePython'>" or str(type(sel)) == "<class 'FeaturePython'>":
+        if hasattr(sel, "OID"):
             try:
                 if WBAuxiliaries.testWithoutEB():
                     arguments = sel.OID + " " + "TESTwithoutEB"
                 else:
                     arguments = sel.OID
+
                 fileSelectDeviceInEB = WBAuxiliaries.scriptSelectShapeInEBPath()
                 subprocess.call("wscript.exe " + fileSelectDeviceInEB + " " + arguments)
             except:

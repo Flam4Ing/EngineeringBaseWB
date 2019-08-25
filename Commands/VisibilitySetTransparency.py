@@ -35,7 +35,8 @@ class TransparencyControl(QtGui.QWidget):
         if len(selObjects) != 0:
             transparencyValue = int(self.leEdit.text())
             for obj in selObjects:
-                if "Transparency" in dir(obj.ViewObject):
+                # if "Transparency" in dir(obj.ViewObject):
+                if hasattr(obj.ViewObject, "Transparency"):
                     obj.ViewObject.Transparency = transparencyValue
         self.close()
 

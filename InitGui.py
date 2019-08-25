@@ -1,3 +1,6 @@
+import FreeCAD
+import FreeCADGui
+
 
 class EBWorkbench (Workbench):
 
@@ -69,5 +72,4 @@ class EBWorkbench (Workbench):
         # this function is mandatory if this is a full python workbench
         return "Gui::PythonWorkbench"
 
-import FreeCAD
-Gui.addWorkbench(EBWorkbench())
+FreeCADGui.addWorkbench(EBWorkbench())

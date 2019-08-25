@@ -229,7 +229,7 @@ class Move_Point_To_Point():
 
 class Mover_For_Object():
     def GetResources(self):
-        return {'Pixmap': WBAuxiliaries.workbenchFolderPath() + "\Icons\MoverForObject.svg",
+        return {'Pixmap': WBAuxiliaries.workbenchFolderPath() + "\Icons\mMove.png",
                 'MenuText': "Move object"}
 
     def Activated(self):

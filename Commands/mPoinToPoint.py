@@ -1,14 +1,7 @@
 import FreeCAD
 import FreeCADGui
 
-
-class SelectionGate(object):
-    def allow(self, doc, obj, sub):
-        if not obj.isDerivedFrom("Part::Feature"):
-            return False
-        if str(sub).startswith("Vertex"):
-            return True
-        return False
+import WBAuxiliaries
 
 
 class SelObserverPointToPoint:
@@ -44,8 +37,8 @@ class SelObserverPointToPoint:
             self.stack = []
 
 
-g = SelectionGate()
-FreeCADGui.Selection.addSelectionGate(g)
+selGate = WBAuxiliaries.SelectionGate("Vertex")
+FreeCADGui.Selection.addSelectionGate(selGate)
 observer = SelObserverPointToPoint()
 FreeCADGui.Selection.addObserver(observer)
 

@@ -1,5 +1,6 @@
 import FreeCAD
 import FreeCADGui
+import WBAuxiliaries
 
 
 def MoveEdgeToEdge():
@@ -22,18 +23,8 @@ def MoveEdgeToEdge():
     new_plm = FreeCAD.Placement(FreeCAD.Vector(0, 0, 0), FreeCAD.Rotation(va, vb), centre)
     # apply placement
     objA.Placement = new_plm.multiply(objA.Placement)
-
-
 # MoveEdgeToEdge()
 
-
-class SelectionGate(object):
-    def allow(self, doc, obj, sub):
-        if not obj.isDerivedFrom("Part::Feature"):
-            return False
-        if str(sub).startswith("Edge"):
-            return True
-        return False
 
 
 class SelObserverEdgeToEdge:
@@ -83,8 +74,8 @@ class SelObserverEdgeToEdge:
             self.stack = []
 
 
-g = SelectionGate()
-FreeCADGui.Selection.addSelectionGate(g)
+selGate = WBAuxiliaries.SelectionGate("Edge")
+FreeCADGui.Selection.addSelectionGate(selGate)
 observerEtE = SelObserverEdgeToEdge()
 FreeCADGui.Selection.addObserver(observerEtE)
 

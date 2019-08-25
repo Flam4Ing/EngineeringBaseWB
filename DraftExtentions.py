@@ -1,5 +1,3 @@
-def Test():
-    print("test")
 
 import FreeCAD
 import Part
@@ -221,5 +219,4 @@ class PlaceOnDraftGrid(DraftTools.Creator):
 
 if __name__ == "__main__":
 # execfile("C:\Users\heinrich\Desktop\FreeCAD18\Mod\!EngineeringBase\DraftExtentions.py")
-    Test()
     PlaceOnDraftGrid().Activated("TS35")

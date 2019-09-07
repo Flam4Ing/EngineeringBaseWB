@@ -22,8 +22,3 @@ class SelectEBObject:
                 WBAuxiliaries.MsgDialog("Please select EB device!")
         else:
             WBAuxiliaries.MsgDialog("Please select EB device!")
-
-if __name__ == "__main__":
-#    execfile("C:\Users\heinrich\AppData\Roaming\FreeCAD\Mod\!EBase\clsSelectEBObject.py")
-    eB = SelectEBObject()
-    eB.GetSelection()

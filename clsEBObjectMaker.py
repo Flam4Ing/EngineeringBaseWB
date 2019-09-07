@@ -105,7 +105,3 @@ def makeFaces(wireChar):
         compFaces.append(face)
     ret = Part.Compound(compFaces)
     return ret
-
-
-if __name__ == "__main__":
-    pass

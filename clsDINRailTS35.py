@@ -76,8 +76,3 @@ def GetDINRailTS35(lenght=100):
     FreeCADGui.Selection.clearSelection()
     FreeCADGui.Selection.addSelection(d)
     return d
-
-
-if __name__ == "__main__":
-    # execfile("C:\Users\heinrich\Desktop\FreeCAD18\Mod\!EngineeringBase\clsDINRailTS35.py")
-    GetDINRailTS35()

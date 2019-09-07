@@ -106,8 +106,3 @@ def filterList(listItems, txtFilter):
 def CreateGui():
     mWindow = FreeCAD.Gui.getMainWindow()
     createDockWindows(mWindow)
-
-
-if __name__ == "__main__":
-    # execfile("C:\Users\heinrich\Desktop\FreeCAD18\Mod\!EngineeringBase\GuiTab.py")
-    CreateGui()

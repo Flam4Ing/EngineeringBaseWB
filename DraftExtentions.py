@@ -217,6 +217,3 @@ class PlaceOnDraftGrid(DraftTools.Creator):
         d.Placement = placement
         FreeCAD.ActiveDocument.recompute()
 
-if __name__ == "__main__":
-# execfile("C:\Users\heinrich\Desktop\FreeCAD18\Mod\!EngineeringBase\DraftExtentions.py")
-    PlaceOnDraftGrid().Activated("TS35")

@@ -126,10 +126,3 @@ def GetSTEPAssembly():
     else:
         WBAuxiliaries.MsgDialog("STEP file doesn't exist!")
 
-
-if __name__ == "__main__":
-# execfile("C:\Users\heinrich\AppData\Roaming\FreeCAD\Mod\!EBase\clsGetDeviceEB.py")
-    GetEBDevice()
-    #GetSTEP()
-    #GetSTEPAssembly()
-    #AddEBDeviceWithShift()

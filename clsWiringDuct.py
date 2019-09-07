@@ -34,8 +34,3 @@ def GetWiringDuct(lenght = 100, height = 50, width = 50):
     FreeCADGui.Selection.clearSelection()
     FreeCADGui.Selection.addSelection(d)
     return d
-
-
-if __name__ == "__main__":
-# execfile("C:\Users\heinrich\Desktop\FreeCAD18\Mod\!EngineeringBase\clsWiringDuct.py")
-    GetWiringDuct()

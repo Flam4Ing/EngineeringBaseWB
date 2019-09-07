@@ -36,8 +36,3 @@ def GetShapeFromSTEP(shapeName = "ShapeFromSTEP", folderPath = " "):
     FreeCADGui.Selection.addSelection(d)
     return d
 
-
-if __name__ == "__main__":
-# execfile("C:\Users\heinrich\Desktop\FreeCAD18\Mod\!EngineeringBase\clsWiringDuct.py")
-    #GetShapeFromSTEP()
-    pass

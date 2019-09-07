@@ -84,8 +84,3 @@ def GetTerminalBlockFromEB():
     d.BMK = terminalProperties[1]
     d.OID = terminalProperties[6]
     FreeCAD.ActiveDocument.recompute()
-
-
-if __name__ == "__main__":
-# execfile("C:\Users\heinrich\AppData\Roaming\FreeCAD\Mod\!EBase\clsTerminalBlock.py")
-    GetTerminalBlock()

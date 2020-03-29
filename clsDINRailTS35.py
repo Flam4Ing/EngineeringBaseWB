@@ -68,6 +68,7 @@ def GetDINRailTS35(lenght=100):
     d.Label = "TS35 DIN Rail"
     d.addProperty("App::PropertyFloat", "Length", "DIN Rail", "DIN rail length").Length = lenght
     d.addProperty("App::PropertyEnumeration", "Height", "DIN Rail", "DIN rail high").Height = ["7.5", "15"]
+    d.addProperty("App::PropertyBool", "fixedPosition", "DIN Rail")
     DINRailTS35(d)
     ViewProviderDINRailTS35(d.ViewObject)
     f = FreeCAD.ActiveDocument.addObject("App::DocumentObjectGroup", "DINRail")

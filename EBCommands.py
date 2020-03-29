@@ -358,3 +358,4 @@ FreeCADGui.addCommand('Set_Display_Mode_Flat_Lines', Set_Display_Mode_Flat_Lines
 FreeCADGui.addCommand('Set_Transparancy', Set_Transparancy())
 FreeCADGui.addCommand('Set_Visibility_True', Set_Visibility_True())
 FreeCADGui.addCommand('Rotate_Sel_Object_15', Rotate_Sel_Object_15())
+

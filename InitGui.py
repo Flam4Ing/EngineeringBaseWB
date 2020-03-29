@@ -10,8 +10,8 @@ class EBWorkbench (Workbench):
 
     def Initialize(self):
         #"This function is executed when FreeCAD starts"
-        import EBCommands # import here all the needed files that create your FreeCAD commands
-        self.list = (["Clear_Console", 
+        import EBCommands, MeasureEdges # import here all the needed files that create your FreeCAD commands
+        self.list = (["Clear_Console",
                     "Get_EB_Shape", 
                     "Get_EB_Shape_Step", 
                     "Add_EB_Shape_With_Shift",

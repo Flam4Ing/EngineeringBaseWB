@@ -3,11 +3,13 @@ import FreeCADGui
 from PySide import QtGui,QtCore
 import WBAuxiliaries
 global selObject
+global observer
 
 class SelObserverPointToPoint:
-    def __init__(self):
+    def __init__(self, movedObjects):
         self.view = FreeCADGui.ActiveDocument.ActiveView
         self.stack = []
+        self.movedObjects = movedObjects
         # print("Please select point on first object!")
         self.form = QtGui.QWidget()
         self.form.setWindowTitle("Move Part Object Point to Point")
@@ -20,16 +22,16 @@ class SelObserverPointToPoint:
         self.btnXYZ.setVisible(False)
         layout.addWidget(self.btnXYZ, 1, 1)
         self.btnX = QtGui.QPushButton("Move X")
-        self.btnX.clicked.connect(self.MoveXYZ)
+        self.btnX.clicked.connect(self.MoveX)
         self.btnX.setVisible(False)
         layout.addWidget(self.btnX, 1, 0)
         self.btnY = QtGui.QPushButton("Move Y")
-        self.btnY.clicked.connect(self.MoveXYZ)
+        self.btnY.clicked.connect(self.MoveY)
         self.btnY.setVisible(False)
         layout.addWidget(self.btnY, 2, 0)
         self.btnZ = QtGui.QPushButton("Move Z")
         self.btnZ.setVisible(False)
-        self.btnZ.clicked.connect(self.MoveXYZ)
+        self.btnZ.clicked.connect(self.MoveZ)
         layout.addWidget(self.btnZ, 3, 0)
 
     def reject(self):
@@ -52,11 +54,10 @@ class SelObserverPointToPoint:
             ObjB_Name = self.stack[1][0]
             PointA = self.stack[0][1]
             PointB = self.stack[1][1]
-            Vector = PointB - PointA
-            Pos0 = selObject.Placement.Base
-            Rot0 = selObject.Placement.Rotation
+            self.Vector = PointB - PointA
+
             # Rot0 = App.ActiveDocument.getObject(ObjB_Name).Placement.Rotation
-            self.MVector = Pos0 + Vector
+
             # FreeCAD.ActiveDocument.getObject(ObjA_Name).Placement = FreeCAD.Placement(MVector, Rot0)
             self.InfoLabel.setText("Move object!")
             self.btnXYZ.setVisible(True)
@@ -64,36 +65,83 @@ class SelObserverPointToPoint:
             self.btnY.setVisible(True)
             self.btnZ.setVisible(True)
 
-    def MoveXYZ(self):
+
+    def MoveSelections(self, direction):
         FreeCAD.ActiveDocument.openTransaction("Move Object")
-        selObject.Placement.Base = self.MVector
-        print("First object -" + selObject.Name + "- is moved!")
+
+        for obj in self.movedObjects:
+            print(obj.Name)
+            if hasattr(obj, "Placement"):
+                Pos0 = obj.Placement.Base
+                if direction == "xyz":
+                    MVector = Pos0 + self.Vector
+                if direction == "x":
+                    Pos0.x = Pos0.x + self.Vector.x
+                    MVector = Pos0
+                if direction == "y":
+                    Pos0.y = Pos0.y + self.Vector.y
+                    MVector = Pos0
+                if direction == "z":
+                    Pos0.z = Pos0.z + self.Vector.z
+                    MVector = Pos0
+                obj.Placement.Base = MVector
+
         FreeCAD.ActiveDocument.commitTransaction()
         RemoveObservers()
         self.stack = []
         FreeCADGui.Control.closeDialog()
 
-try:
-    selection = FreeCADGui.Selection.getSelectionEx()
+    def MoveXYZ(self):
+        self.MoveSelections("xyz")
+    def MoveX(self):
+        self.MoveSelections("x")
+    def MoveY(self):
+        self.MoveSelections("y")
+    def MoveZ(self):
+        self.MoveSelections("z")
 
-    if len(selection) == 1 and selection[0].Object.isDerivedFrom('App::Part'):
+def MoveObject():
+    try:
+
+        global selObject
+        movedObjects = []
+        selection = FreeCADGui.Selection.getSelectionEx()
         selObject = selection[0].Object
-        FreeCADGui.Selection.clearSelection()
-        selGate = WBAuxiliaries.SelectionGate("Vertex")
-        FreeCADGui.Selection.addSelectionGate(selGate)
-        observer = SelObserverPointToPoint()
-        FreeCADGui.Selection.addObserver(observer)
-        print(selObject.Name + " - is selected!")
-        FreeCADGui.Control.showDialog(observer)
-    else:
-        WBAuxiliaries.MsgDialog("Please first select one Part Object!")
 
-except:
-    FreeCADGui.Selection.removeObserver(observer)
-    FreeCADGui.Selection.removeSelectionGate()
-    print("Observers are removed!")
+        if len(selection) != 1:
+            WBAuxiliaries.MsgDialog("Please first select one Part Object!")
+            return
+        if not (selObject.isDerivedFrom('App::DocumentObjectGroup') or selObject.isDerivedFrom('App::Part')):
+            WBAuxiliaries.MsgDialog("Please first select one Part Object!")
+            return
+
+        def StartObserver(movedObjects):
+            global observer
+            selGate = WBAuxiliaries.SelectionGate("Vertex")
+            FreeCADGui.Selection.addSelectionGate(selGate)
+            observer = SelObserverPointToPoint(movedObjects)
+            FreeCADGui.Selection.addObserver(observer)
+            print(selObject.Name + " - is selected!")
+            FreeCADGui.Control.showDialog(observer)
+
+        if selObject.isDerivedFrom('App::Part'):
+            movedObjects.append(selection[0].Object)
+            StartObserver(movedObjects)
+
+        if selObject.isDerivedFrom('App::DocumentObjectGroup'):
+            movedObjects = WBAuxiliaries.GetSelectionWithSubElements()
+            StartObserver(movedObjects)
+
+        FreeCADGui.Selection.clearSelection()
+
+    except:
+        FreeCADGui.Selection.removeObserver(observer)
+        FreeCADGui.Selection.removeSelectionGate()
+        print("Observers are removed!")
 
 def RemoveObservers():
     FreeCADGui.Selection.removeObserver(observer)
     FreeCADGui.Selection.removeSelectionGate()
     print ("Observers are removed!")
+
+MoveObject()

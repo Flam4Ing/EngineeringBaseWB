@@ -2,7 +2,7 @@ import FreeCAD
 import FreeCADGui
 import WBAuxiliaries
 
-
+#Beispiel
 def MoveEdgeToEdge():
     sel = FreeCAD.Gui.Selection.getSelectionEx()
     objA = sel[0].Object
@@ -24,7 +24,7 @@ def MoveEdgeToEdge():
     # apply placement
     objA.Placement = new_plm.multiply(objA.Placement)
 # MoveEdgeToEdge()
-
+#End Beispiel
 
 
 class SelObserverEdgeToEdge:
@@ -47,27 +47,34 @@ class SelObserverEdgeToEdge:
         if len(self.stack) == 1:
             print("Please select edge on second object!")
         if len(self.stack) == 2:
+            FreeCAD.ActiveDocument.openTransaction("Align edges")
             objA = self.stack[0][0]
             edgeA = self.stack[0][1]
             edgeB = self.stack[1][1]
             # transform object A placement
             # edge vector
-            edgeAEndPoint = edgeA.lastVertex(True).Point
-            edgeAStartPoint = edgeA.firstVertex(True).Point
-            edgeBEndPoint = edgeB.lastVertex(True).Point
-            edgeBStartPoint = edgeB.firstVertex(True).Point
-            va = (edgeAEndPoint - edgeAStartPoint).normalize()
-            vb = (edgeBEndPoint - edgeBStartPoint).normalize()
+            edgeA_EndPoint = edgeA.lastVertex(True).Point
+            edgeA_StartPoint = edgeA.firstVertex(True).Point
+            edgeA_MidPoint = (edgeA_EndPoint + edgeA_StartPoint).multiply(0.5)
+            edgeB_EndPoint = edgeB.lastVertex(True).Point
+            edgeB_StartPoint = edgeB.firstVertex(True).Point
+            edgeB_MidPoint = (edgeB_EndPoint + edgeB_StartPoint).multiply(0.5)
+            va = (edgeA_EndPoint - edgeA_StartPoint).normalize()
+            vb = (edgeB_EndPoint - edgeB_StartPoint).normalize()
+
             # rot centre
-            centre = edgeAStartPoint
+            #center = edgeA_StartPoint
+            center = edgeA_MidPoint
             # new placement
-            new_plm = FreeCAD.Placement(FreeCAD.Vector(0, 0, 0), FreeCAD.Rotation(va, vb), centre)
+            new_plm = FreeCAD.Placement(FreeCAD.Vector(0, 0, 0), FreeCAD.Rotation(va, vb), center)
             # apply placement
             objA.Placement = new_plm.multiply(objA.Placement)
             # laying on edge
-            Vector = edgeA.firstVertex(True).Point - edgeB.firstVertex(True).Point
-            MVector = objA.Placement.Base - Vector
+            #distatceVector = edgeA_StartPoint - edgeB_StartPoint
+            distatceVector = edgeA_MidPoint - edgeB_MidPoint
+            MVector = objA.Placement.Base - distatceVector
             objA.Placement.Base = MVector
+            FreeCAD.ActiveDocument.commitTransaction()
 
             print("First object -" + str(objA.Label) + "- is moved!")
             RemoveObservers()

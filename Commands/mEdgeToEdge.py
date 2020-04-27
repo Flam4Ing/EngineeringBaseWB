@@ -61,12 +61,13 @@ class SelObserverEdgeToEdge:
             edgeB_MidPoint = (edgeB_EndPoint + edgeB_StartPoint).multiply(0.5)
             va = (edgeA_EndPoint - edgeA_StartPoint).normalize()
             vb = (edgeB_EndPoint - edgeB_StartPoint).normalize()
+            angleToRotate = FreeCAD.Rotation(va, vb)
 
             # rot centre
             #center = edgeA_StartPoint
             center = edgeA_MidPoint
             # new placement
-            new_plm = FreeCAD.Placement(FreeCAD.Vector(0, 0, 0), FreeCAD.Rotation(va, vb), center)
+            new_plm = FreeCAD.Placement(FreeCAD.Vector(0, 0, 0), angleToRotate, center)
             # apply placement
             objA.Placement = new_plm.multiply(objA.Placement)
             # laying on edge

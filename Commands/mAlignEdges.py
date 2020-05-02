@@ -4,15 +4,8 @@ from PySide import QtGui,QtCore
 import WBAuxiliaries
 from Utils.EB_Geometry import *
 import Draft
+import Part
 global observer
-
-def find(anEdge,inObject):
-    for e in inObject.Shape.Edges:
-        if e.Vertexes[0].Point == anEdge.Vertexes[0].Point:
-               if e.Vertexes[-1].Point == anEdge.Vertexes[-1].Point:
-                   return inObject.Shape.Edges.index(e) # we return the index of the edge in the edges list
-    return None
-
 
 
 class SelObserverEdgeToEdge:
@@ -26,20 +19,30 @@ class SelObserverEdgeToEdge:
         self.form = QtGui.QWidget()
         self.form.setWindowTitle("Align Edges")
         layout = QtGui.QGridLayout(self.form)
-        self.InfoLabel = QtGui.QLabel()
-        self.InfoLabel.setText("Select edge on First object!")
-        layout.addWidget(self.InfoLabel, 0, 0)
+        #
+        self.lblPromt = QtGui.QLabel()
+        self.lblPromt.setText("Select edge on First object!")
+        layout.addWidget(self.lblPromt, 0, 0)
+        #
         self.btnRotate = QtGui.QPushButton("Flip")
         self.btnRotate.clicked.connect(self.Flip)
+        self.btnRotate.setVisible(False)
         layout.addWidget(self.btnRotate, 1, 1)
-        self.btnMoveToggle = QtGui.QPushButton("Move")
-        self.btnMoveToggle.clicked.connect(self.MoveToggle)
-        layout.addWidget(self.btnMoveToggle, 2, 1)
-        self.btnMoveStart = QtGui.QPushButton("Spare")
-        self.btnMoveStart.clicked.connect(self.Spare)
-        layout.addWidget(self.btnMoveStart, 3, 1)
-
-
+        #
+        self.btnJointEdges = QtGui.QPushButton("Joint Edges")
+        self.btnJointEdges.clicked.connect(self.JointEdges)
+        self.btnJointEdges.setVisible(False)
+        layout.addWidget(self.btnJointEdges, 2, 1)
+        #
+        self.lblInfo = QtGui.QLabel()
+        self.lblInfo.setText("Select two faces to align!")
+        self.lblInfo.setVisible(False)
+        layout.addWidget(self.lblInfo, 3, 1)
+        #
+        self.btnAlignFaces = QtGui.QPushButton("Align Faces")
+        self.btnAlignFaces.clicked.connect(self.AlignFaces)
+        self.btnAlignFaces.setVisible(False)
+        layout.addWidget(self.btnAlignFaces, 4, 1)
 
     def CleanAll(self):
         FreeCAD.ActiveDocument.recompute()
@@ -77,12 +80,18 @@ class SelObserverEdgeToEdge:
             # subObj = sel[0].SubObjects[0]
             # self.stack.append([mainObj, subObj])
         if len(self.stack) == 1:
-            self.InfoLabel.setText("Select edge on Second object")
+            self.lblPromt.setText("Select edge on Second object")
         if len(self.stack) == 2:
-            self.InfoLabel.setVisible(False)
+            self.lblPromt.setVisible(False)
             self.GetSelectedObjects()
             self.Flip()
             #self.Move()
+
+            self.btnRotate.setVisible(True)
+            self.btnJointEdges.setVisible(True)
+            self.btnAlignFaces.setVisible(True)
+            self.lblInfo.setVisible(True)
+
 
             """Clean all"""
             self.CleanAll()
@@ -148,7 +157,7 @@ class SelObserverEdgeToEdge:
             Draft.rotate(self.objA, rot_angle, rot_center, rot_axis)
 
 
-    def MoveToggle(self):
+    def JointEdges(self):
         self.GetSelectedObjects()
         self.toggle = self.toggle +1
         if (self.toggle == 1):
@@ -167,17 +176,28 @@ class SelObserverEdgeToEdge:
         FreeCAD.ActiveDocument.commitTransaction()
         FreeCAD.ActiveDocument.recompute()
 
-    def Spare(self):
+    def AlignFaces(self):
         self.GetSelectedObjects()
-        rot_center = self.edgeA_MidPoint
-        rot_axis = edgeToVector(self.edgeA)
-        rot = FreeCAD.Rotation(rot_axis, 15)
-        self.objA.Placement = FreeCAD.Placement(FreeCAD.Vector(0, 0, 0), rot, rot_center).multiply(self.objA.Placement)
-        sel = FreeCAD.Gui.Selection.getSelectionEx()
-        selFace1 = sel[0].SubObjects[0].normalAt(0, 0)
-        selFace2 = sel[1].SubObjects[0].normalAt(0, 0)
-        print (angleBetween(selFace1, selFace2))
 
+        sel = FreeCAD.Gui.Selection.getSelectionEx()
+        if len(sel) == 2:
+            if isinstance(sel[0].SubObjects[0], Part.Face) and isinstance(sel[1].SubObjects[0], Part.Face):
+                rot_center = self.edgeA_MidPoint
+                rot_axis = edgeToVector(self.edgeA)
+                selFace1Normal = sel[0].SubObjects[0].normalAt(0, 0)
+                selFace2Normal = sel[1].SubObjects[0].normalAt(0, 0)
+                m_angle, m_angle_rad = angleBetween(selFace1Normal, selFace2Normal)
+                if m_angle < 180:
+                    diff_angle = 180 - m_angle
+                    # print("Kleiner 180 - " + str(m_angle))
+                elif m_angle > 180:
+                    diff_angle = 360 - m_angle
+                    # print("Grosser 180 - " + str(m_angle))
+                elif m_angle == 180:
+                    diff_angle = -180
+                    # print("Gleich 180 - " + str(m_angle))
+                rot = FreeCAD.Rotation(rot_axis, diff_angle)
+                self.objA.Placement = FreeCAD.Placement(FreeCAD.Vector(0, 0, 0), rot, rot_center).multiply(self.objA.Placement)
 
 
 def AlignEdges():
@@ -191,9 +211,11 @@ def AlignEdges():
     except:
         RemoveObservers()
 
+
 def RemoveObservers():
     FreeCADGui.Selection.removeObserver(observer)
     FreeCADGui.Selection.removeSelectionGate()
     print ("Observers are removed!")
+
 
 AlignEdges()

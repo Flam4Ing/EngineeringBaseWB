@@ -2,6 +2,25 @@ import FreeCAD
 import Part
 from Utils.EB_Print import *
 
+
+def centerLinePoint(edge, info=0):
+    """ Return the center point of the Line.
+    """
+    # Vector_A=edge.valueAt( 0.0 )
+    Vector_A = edge.Vertexes[0].Point
+    if info != 0:
+        print_point(Vector_A, "Origin of line selected is: ")
+    # Vector_B=edge.valueAt( edge.Length )
+    Vector_B = edge.Vertexes[-1].Point
+    if info != 0:
+        print_point(Vector_B, "End of line selected is: ")
+    Vector_MidPoint = Vector_B + Vector_A
+    center = Vector_MidPoint.multiply(0.5)
+    if info != 0:
+        print_point(center, "Center of line selected is: ")
+    return center
+
+
 def edgeToVector(edge):
     """ Return a vector from an edge or a Part.line.
     """
@@ -96,3 +115,10 @@ def GetConnectedEdges(someshape, selected_edge):
                 if vertex1.isSame(vertex2):
                     connected_edges.append(edge)
 
+
+def FindEdgeInObject(anEdge,inObject):
+    for e in inObject.Shape.Edges:
+        if e.Vertexes[0].Point == anEdge.Vertexes[0].Point:
+               if e.Vertexes[-1].Point == anEdge.Vertexes[-1].Point:
+                   return inObject.Shape.Edges.index(e) # we return the index of the edge in the edges list
+    return None

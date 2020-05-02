@@ -1,6 +1,7 @@
 import WBAuxiliaries
 import FreeCAD
 import FreeCADGui
+import Utils.EB_Geometry
 
 
 class Get_EB_Shape():
@@ -318,18 +319,26 @@ class Rotate_Sel_Object_15():
     def GetResources(self):
         return {'Pixmap': WBAuxiliaries.workbenchFolderPath() + "\Icons\Rotate90.svg",
                 'MenuText': "Rotate 15",
-                'ToolTip': 'Auxiliary tool to rotate a shape 15 degrees.\nSelect a face of the object you want to rotate\n and it will be rotated 15 degrees using its normal as rotation\n axis'}
+                'ToolTip': 'Auxiliary tool to rotate a shape 15 degrees.\nSelect a face or edge of the object you want to rotate\n and it will be rotated 15 degrees using its normal as rotation\n axis'}
 
     def Activated(self):
         """Do something here"""
         sel = FreeCADGui.Selection.getSelectionEx()
-        if not "Face" in str(sel[0].SubObjects[0]):
-            WBAuxiliaries.MsgDialog("Please select face of shape!")
+        if len(sel) == 0:
+            WBAuxiliaries.MsgDialog("Please select face or edge of shape!")
+            return
+        if "Face" in str(sel[0].SubObjects[0]):
+            selFace = sel[0].SubObjects[0]
+            rot_center = selFace.CenterOfMass
+            rot_axis = selFace.normalAt(0, 0)
+        elif "Edge" in str(sel[0].SubObjects[0]):
+            selEdge = sel[0].SubObjects[0]
+            rot_center = Utils.EB_Geometry.centerLinePoint(selEdge)
+            rot_axis = Utils.EB_Geometry.edgeToVector(selEdge)
+        else:
+            WBAuxiliaries.MsgDialog("Please select face or edge of shape!")
             return
         objA = sel[0].Object
-        selFace = sel[0].SubObjects[0]
-        rot_center = selFace.CenterOfMass
-        rot_axis = selFace.normalAt(0, 0)
         rot = FreeCAD.Rotation(rot_axis, 15)
         objA.Placement = FreeCAD.Placement(FreeCAD.Vector(0, 0, 0), rot, rot_center).multiply(objA.Placement)
         return

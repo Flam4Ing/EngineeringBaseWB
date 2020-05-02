@@ -7,35 +7,56 @@ global observer
 
 class SelObserverPointToPoint:
     def __init__(self, movedObjects):
+        self.createGUI()
         self.view = FreeCADGui.ActiveDocument.ActiveView
         self.stack = []
         self.movedObjects = movedObjects
-        # print("Please select point on first object!")
+
+
+    def createGUI(self):
         self.form = QtGui.QWidget()
         self.form.setWindowTitle("Move Part Object Point to Point")
         layout = QtGui.QGridLayout(self.form)
+        #
         self.InfoLabel = QtGui.QLabel()
         self.InfoLabel.setText("Select point on First object!")
         layout.addWidget(self.InfoLabel, 0, 0)
+        #
         self.btnXYZ = QtGui.QPushButton("Move XYZ")
         self.btnXYZ.clicked.connect(self.MoveXYZ)
         self.btnXYZ.setVisible(False)
         layout.addWidget(self.btnXYZ, 1, 1)
+        #
         self.btnX = QtGui.QPushButton("Move X")
         self.btnX.clicked.connect(self.MoveX)
         self.btnX.setVisible(False)
         layout.addWidget(self.btnX, 1, 0)
+        #
         self.btnY = QtGui.QPushButton("Move Y")
         self.btnY.clicked.connect(self.MoveY)
         self.btnY.setVisible(False)
         layout.addWidget(self.btnY, 2, 0)
+        #
         self.btnZ = QtGui.QPushButton("Move Z")
         self.btnZ.setVisible(False)
         self.btnZ.clicked.connect(self.MoveZ)
         layout.addWidget(self.btnZ, 3, 0)
 
+    def CleanAll(self):
+        FreeCAD.ActiveDocument.recompute()
+        try:
+            RemoveObservers()
+        except:
+            pass
+
     def reject(self):
-        RemoveObservers()
+        self.CleanAll()
+        self.stack = []
+        FreeCADGui.Control.closeDialog()
+
+    def accept(self):
+        self.CleanAll()
+        self.stack = []
         FreeCADGui.Control.closeDialog()
 
     def addSelection(self, doc, obj, sub, pnt):  # Selection object

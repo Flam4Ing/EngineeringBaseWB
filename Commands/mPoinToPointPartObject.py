@@ -87,6 +87,16 @@ class SelObserverPointToPoint:
             self.btnZ.setVisible(True)
 
 
+
+    def MoveXYZ(self):
+        self.MoveSelections("xyz")
+    def MoveX(self):
+        self.MoveSelections("x")
+    def MoveY(self):
+        self.MoveSelections("y")
+    def MoveZ(self):
+        self.MoveSelections("z")
+
     def MoveSelections(self, direction):
         FreeCAD.ActiveDocument.openTransaction("Move Object")
 
@@ -108,18 +118,10 @@ class SelObserverPointToPoint:
                 obj.Placement.Base = MVector
 
         FreeCAD.ActiveDocument.commitTransaction()
-        RemoveObservers()
+        RemoveObservers() #todo refactor
         self.stack = []
         FreeCADGui.Control.closeDialog()
 
-    def MoveXYZ(self):
-        self.MoveSelections("xyz")
-    def MoveX(self):
-        self.MoveSelections("x")
-    def MoveY(self):
-        self.MoveSelections("y")
-    def MoveZ(self):
-        self.MoveSelections("z")
 
 def MoveObject():
     try:

@@ -3,6 +3,7 @@ import FreeCADGui
 from PySide import QtGui,QtCore
 import WBAuxiliaries
 import  traceback
+from Utils.EB_Geometry import *
 
 global observer
 
@@ -54,6 +55,11 @@ class SelObserverPointToPoint:
         self.stack = []
         FreeCADGui.Control.closeDialog()
 
+    def accept(self):
+        self.CleanAll()
+        self.stack = []
+        FreeCADGui.Control.closeDialog()
+
     def addSelection(self, doc, obj, sub, pnt):  # Selection object
         # FreeCAD.Console.PrintMessage(str(doc)+ "\n")          # Name of the document
         # FreeCAD.Console.PrintMessage(str(obj)+ "\n")          # Name of the object
@@ -61,34 +67,43 @@ class SelObserverPointToPoint:
         # FreeCAD.Console.PrintMessage(str(pnt)+ "\n")          # Coordinates of the object
         if str(sub).startswith("Vertex"):
             """Get names from  selected subelement and parent object"""
-            self.docName = str(doc)
+            docName = str(doc)
             objectName = str(obj)
-            edgeNumber = int(str(sub)[6:])
-            self.stack.append([objectName, edgeNumber])
-            print(edgeNumber)
+            subElemetnName = str(sub)
+            self.stack.append([objectName, subElemetnName,docName])
 
 
         if len(self.stack) == 1:
             self.lblPromt.setText("Select point on Second object!")
         if len(self.stack) == 2:
+            """Update Gui"""
             self.lblPromt.setVisible(False)
             self.lblPromt.setText("Move object!")
             self.btnXYZ.setVisible(True)
             self.btnX.setVisible(True)
             self.btnY.setVisible(True)
             self.btnZ.setVisible(True)
+            """Do Job"""
+            self.GetSelectedObjects()
 
             """Clean all"""
             self.CleanAll()
 
 
-    def accept(self):
-        self.CleanAll()
-        self.stack = []
-        FreeCADGui.Control.closeDialog()
+
+
+    def GetSelectedObjects(self):
+        FreeCAD.ActiveDocument.recompute()
+        """Get first Object A"""
+        self.objA = FreeCAD.getDocument(self.stack[0][2]).getObject(self.stack[0][0])
+        print(self.stack[0][1])
+        self.pointA = getObjectVertexFromName(self.objA, self.stack[0][1]).Point
+        """Get second Object B"""
+        self.objB = FreeCAD.getDocument(self.stack[1][2]).getObject(self.stack[1][0])
+        self.pointB = getObjectVertexFromName(self.objB, self.stack[1][1]).Point
 
     def MoveXYZ(self):
-        pass
+        self.MoveSelections("xyz")
 
     def MoveX(self):
         pass
@@ -96,6 +111,16 @@ class SelObserverPointToPoint:
         pass
     def MoveZ(self):
         pass
+
+    def MoveSelections(self, direction):
+        FreeCAD.ActiveDocument.openTransaction("Move Object")
+        Vector = self.pointB - self.pointA
+        Pos0 = self.objA.Placement.Base
+        Rot0 = self.objA.Placement.Rotation
+        # Rot0 = App.ActiveDocument.getObject(ObjB_Name).Placement.Rotation
+        MVector = Pos0 + Vector
+        self.objA.Placement = FreeCAD.Placement(MVector, Rot0)
+        FreeCAD.ActiveDocument.commitTransaction()
 
 
 def AlignPoints():

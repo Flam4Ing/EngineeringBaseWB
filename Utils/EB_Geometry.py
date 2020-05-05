@@ -3,6 +3,22 @@ import Part
 from Utils.EB_Print import *
 
 
+#------------------------------------------------------------------------------
+def getObjectFaceFromName( obj, faceName ):
+    assert faceName.startswith('Face')
+    ind = int( faceName[4:]) -1
+    return obj.Shape.Faces[ind]
+#------------------------------------------------------------------------------
+def getObjectEdgeFromName( obj, name ):
+    assert name.startswith('Edge')
+    ind = int( name[4:]) -1
+    return obj.Shape.Edges[ind]
+#------------------------------------------------------------------------------
+def getObjectVertexFromName( obj, name ):
+    assert name.startswith('Vertex')
+    ind = int( name[6:]) -1
+    return obj.Shape.Vertexes[ind]
+#------------------------------------------------------------------------------
 def centerLinePoint(edge, info=0):
     """ Return the center point of the Line.
     """
@@ -20,7 +36,7 @@ def centerLinePoint(edge, info=0):
         print_point(center, "Center of line selected is: ")
     return center
 
-
+#------------------------------------------------------------------------------
 def edgeToVector(edge):
     """ Return a vector from an edge or a Part.line.
     """
@@ -32,7 +48,7 @@ def edgeToVector(edge):
         print_msg("Error in edgeToVector(edge): not a good type of input" + str(type(edge)))
         return None
 
-
+#------------------------------------------------------------------------------
 def colinearEdges(edge1, edge2, info=0, tolerance=1e-12):
     """ Return true if 2 edges are colinear.
     """
@@ -49,7 +65,7 @@ def colinearEdges(edge1, edge2, info=0, tolerance=1e-12):
     C = edgeToVector(edge2)
     return colinearVectors(A, B, C, info=info, tolerance=tolerance)
 
-
+#------------------------------------------------------------------------------
 def colinearVectors(A, B, C, info=0, tolerance=1e-12):
     """ Return true if the 3 points are aligned.
     """
@@ -72,7 +88,7 @@ def colinearVectors(A, B, C, info=0, tolerance=1e-12):
         return False
     return
 
-
+#------------------------------------------------------------------------------
 def angleBetween(e1, e2):
     """ Return the angle (in degrees) between 2 edges.
     """
@@ -105,7 +121,7 @@ def angleBetween(e1, e2):
     import math
     return math.degrees(angle), angle
 
-
+#------------------------------------------------------------------------------
 def GetConnectedEdges(someshape, selected_edge):
     #https: // forum.freecadweb.org / viewtopic.php?t = 30872
     connected_edges = []
@@ -116,6 +132,8 @@ def GetConnectedEdges(someshape, selected_edge):
                     connected_edges.append(edge)
 
 
+
+#------------------------------------------------------------------------------
 def FindEdgeInObject(anEdge,inObject):
     for e in inObject.Shape.Edges:
         if e.Vertexes[0].Point == anEdge.Vertexes[0].Point:

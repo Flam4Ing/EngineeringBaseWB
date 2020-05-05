@@ -69,10 +69,10 @@ class SelObserverEdgeToEdge:
 
         if str(sub).startswith("Edge"):
             """Get names from  selected subelement and parent object"""
-            self.docName = str(doc)
+            docName = str(doc)
             objectName = str(obj)
-            edgeNumber = int(str(sub)[4:])
-            self.stack.append([objectName, edgeNumber])
+            subElemetnName = str(sub)
+            self.stack.append([objectName, subElemetnName, docName])
 
             """Get selected object with subelement"""
             # sel = FreeCAD.Gui.Selection.getSelectionEx()
@@ -83,15 +83,14 @@ class SelObserverEdgeToEdge:
             self.lblPromt.setText("Select edge on Second object")
         if len(self.stack) == 2:
             self.lblPromt.setVisible(False)
-            self.GetSelectedObjects()
-            self.Flip()
-            #self.Move()
-
             self.btnRotate.setVisible(True)
             self.btnJointEdges.setVisible(True)
             self.btnAlignFaces.setVisible(True)
             self.lblInfo.setVisible(True)
 
+            self.GetSelectedObjects()
+            self.Flip()
+            #self.Move()
 
             """Clean all"""
             self.CleanAll()
@@ -101,19 +100,15 @@ class SelObserverEdgeToEdge:
     def GetSelectedObjects(self):
         FreeCAD.ActiveDocument.recompute()
         """Get first Object A"""
-        self.objA = FreeCAD.getDocument(self.docName).getObject(self.stack[0][0])
-        edgeA_Number = self.stack[0][1] - 1
-        self.edgeA = self.objA.Shape.Edges[edgeA_Number]
+        self.objA = FreeCAD.getDocument(self.stack[0][2]).getObject(self.stack[0][0])
+        self.edgeA = getObjectEdgeFromName(self.objA, self.stack[0][1])
         self.edgeA_EndPoint = self.edgeA.lastVertex(True).Point
         self.edgeA_StartPoint = self.edgeA.firstVertex(True).Point
         self.edgeA_MidPoint = (self.edgeA_EndPoint + self.edgeA_StartPoint).multiply(0.5)
-        # print(self.objA.Name)
-        # print("EdgeA-" + str(edgeA_Number) + " Length-" + str(self.edgeA.Length) +"mm")
 
         """Get second Object B"""
-        self.objB = FreeCAD.getDocument(self.docName).getObject(self.stack[1][0])
-        edgeB_Number = self.stack[1][1] - 1
-        self.edgeB = self.objB.Shape.Edges[edgeB_Number]
+        self.objB = FreeCAD.getDocument(self.stack[1][2]).getObject(self.stack[1][0])
+        self.edgeB = getObjectEdgeFromName(self.objB, self.stack[1][1])
         self.edgeB_EndPoint = self.edgeB.lastVertex(True).Point
         self.edgeB_StartPoint = self.edgeB.firstVertex(True).Point
         self.edgeB_MidPoint = (self.edgeB_EndPoint + self.edgeB_StartPoint).multiply(0.5)

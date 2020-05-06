@@ -9,6 +9,8 @@ global observer
 
 class SelObserverPointToPoint:
     def __init__(self):
+        selTreeView = FreeCADGui.Selection.getSelectionEx()
+        self.selFolder = selTreeView[0].Object
         self.createGUI()
         self.view = FreeCADGui.ActiveDocument.ActiveView
         self.stack = []
@@ -42,6 +44,10 @@ class SelObserverPointToPoint:
         self.btnZ.setVisible(False)
         self.btnZ.clicked.connect(self.MoveZ)
         layout.addWidget(self.btnZ, 3, 0)
+        #
+        self.chkbMoveFolder = QtGui.QCheckBox()
+        self.chkbMoveFolder.setVisible(False)
+        layout.addWidget(self.chkbMoveFolder, 4, 0)
 
     def CleanAll(self):
         FreeCAD.ActiveDocument.recompute()
@@ -83,6 +89,7 @@ class SelObserverPointToPoint:
             self.btnX.setVisible(True)
             self.btnY.setVisible(True)
             self.btnZ.setVisible(True)
+            self.chkbMoveFolder.setVisible(True)
             """Do Job"""
             self.GetSelectedObjects()
 
@@ -96,30 +103,48 @@ class SelObserverPointToPoint:
         FreeCAD.ActiveDocument.recompute()
         """Get first Object A"""
         self.objA = FreeCAD.getDocument(self.stack[0][2]).getObject(self.stack[0][0])
-        print(self.stack[0][1])
         self.pointA = getObjectVertexFromName(self.objA, self.stack[0][1]).Point
         """Get second Object B"""
         self.objB = FreeCAD.getDocument(self.stack[1][2]).getObject(self.stack[1][0])
         self.pointB = getObjectVertexFromName(self.objB, self.stack[1][1]).Point
+        """Get distance to move"""
+        self.Vector = self.pointB - self.pointA
+        """Get Objects to move"""
+        self.movedObjects = []
+        self.movedObjects.append(self.objA)
+        print(self.selFolder.Label)
+        if (self.selFolder.isDerivedFrom('App::DocumentObjectGroup')):
+            self.chkbMoveFolder.setText("Move selected folder " + self.selFolder.Name + " ?")
 
     def MoveXYZ(self):
         self.MoveSelections("xyz")
 
     def MoveX(self):
-        pass
+        self.MoveSelections("x")
     def MoveY(self):
-        pass
+        self.MoveSelections("y")
     def MoveZ(self):
-        pass
+        self.MoveSelections("z")
+
 
     def MoveSelections(self, direction):
         FreeCAD.ActiveDocument.openTransaction("Move Object")
-        Vector = self.pointB - self.pointA
-        Pos0 = self.objA.Placement.Base
-        Rot0 = self.objA.Placement.Rotation
-        # Rot0 = App.ActiveDocument.getObject(ObjB_Name).Placement.Rotation
-        MVector = Pos0 + Vector
-        self.objA.Placement = FreeCAD.Placement(MVector, Rot0)
+
+        for obj in self.movedObjects:
+            if hasattr(obj, "Placement"):
+                Pos0 = obj.Placement.Base
+                if direction == "xyz":
+                    MVector = Pos0 + self.Vector
+                if direction == "x":
+                    Pos0.x = Pos0.x + self.Vector.x
+                    MVector = Pos0
+                if direction == "y":
+                    Pos0.y = Pos0.y + self.Vector.y
+                    MVector = Pos0
+                if direction == "z":
+                    Pos0.z = Pos0.z + self.Vector.z
+                    MVector = Pos0
+                obj.Placement.Base = MVector
         FreeCAD.ActiveDocument.commitTransaction()
 
 

@@ -1,7 +1,7 @@
 import WBAuxiliaries
 
 def VisibilitySetTrue():
-    selObjects = WBAuxiliaries.GetSelectionWithSubElements()
+    selObjects = WBAuxiliaries.GetSelectionWithSubObjects()
     if len(selObjects) != 0:
         for obj in selObjects:
             #print(obj.ViewObject.Visibility)

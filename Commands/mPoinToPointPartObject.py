@@ -152,7 +152,7 @@ def MoveObject():
             StartObserver(movedObjects)
 
         if selObject.isDerivedFrom('App::DocumentObjectGroup'):
-            movedObjects = WBAuxiliaries.GetSelectionWithSubElements()
+            movedObjects = WBAuxiliaries.GetSelectionWithSubObjects()
             StartObserver(movedObjects)
 
         FreeCADGui.Selection.clearSelection()

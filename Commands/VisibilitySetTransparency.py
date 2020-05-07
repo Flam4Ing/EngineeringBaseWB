@@ -31,7 +31,7 @@ class TransparencyControl(QtGui.QWidget):
         self.setWindowTitle('Set Transparency')
 
     def clickedButton(self):
-        selObjects = WBAuxiliaries.GetSelectionWithSubElements()
+        selObjects = WBAuxiliaries.GetSelectionWithSubObjects()
         if len(selObjects) != 0:
             transparencyValue = int(self.leEdit.text())
             for obj in selObjects:

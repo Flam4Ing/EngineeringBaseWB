@@ -9,12 +9,29 @@ global observer
 
 class SelObserverPointToPoint:
     def __init__(self):
-        selTreeView = FreeCADGui.Selection.getSelectionEx()
-        self.selFolder = selTreeView[0].Object
         self.createGUI()
         self.view = FreeCADGui.ActiveDocument.ActiveView
         self.stack = []
-        self.toggle = 0
+        # self.toggle = 0
+        self.GetSelTreeViewElement()
+
+
+    def GetSelTreeViewElement(self):
+        selTreeView = FreeCADGui.Selection.getSelectionEx()
+        if len(selTreeView) > 0:
+            self.selContainer = selTreeView[0].Object
+            if (self.selContainer.isDerivedFrom('App::DocumentObjectGroup')):
+                self.chkbMoveFolder.setText("Move selected folder <<" + self.selContainer.Label + ">> ?")
+                self.isFolderSelected = True
+            else:
+                self.isFolderSelected = False
+
+            if (self.selContainer.isDerivedFrom('App::Part')):
+                self.chkbMoveFolder.setText("Move selected Part <<" + self.selContainer.Label + ">> ?")
+                self.isPartSelected = True
+            else:
+                self.isPartSelected = False
+
 
     def createGUI(self):
         self.form = QtGui.QWidget()
@@ -90,6 +107,8 @@ class SelObserverPointToPoint:
             self.btnY.setVisible(True)
             self.btnZ.setVisible(True)
             self.chkbMoveFolder.setVisible(True)
+
+
             """Do Job"""
             self.GetSelectedObjects()
 
@@ -109,12 +128,7 @@ class SelObserverPointToPoint:
         self.pointB = getObjectVertexFromName(self.objB, self.stack[1][1]).Point
         """Get distance to move"""
         self.Vector = self.pointB - self.pointA
-        """Get Objects to move"""
-        self.movedObjects = []
-        self.movedObjects.append(self.objA)
-        print(self.selFolder.Label)
-        if (self.selFolder.isDerivedFrom('App::DocumentObjectGroup')):
-            self.chkbMoveFolder.setText("Move selected folder " + self.selFolder.Name + " ?")
+
 
     def MoveXYZ(self):
         self.MoveSelections("xyz")
@@ -129,7 +143,15 @@ class SelObserverPointToPoint:
 
     def MoveSelections(self, direction):
         FreeCAD.ActiveDocument.openTransaction("Move Object")
+        """Get Objects to move"""
+        self.movedObjects = []
+        if not (self.chkbMoveFolder.isChecked()):
+            self.movedObjects.append(self.objA)
 
+        if self.chkbMoveFolder.isChecked() and self.isFolderSelected:
+            self.movedObjects = WBAuxiliaries.GetChildrenFromObject(self.selContainer)
+
+        """Move"""
         for obj in self.movedObjects:
             if hasattr(obj, "Placement"):
                 Pos0 = obj.Placement.Base

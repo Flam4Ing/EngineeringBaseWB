@@ -151,6 +151,9 @@ class SelObserverPointToPoint:
         if self.chkbMoveFolder.isChecked() and self.isFolderSelected:
             self.movedObjects = WBAuxiliaries.GetChildrenFromObject(self.selContainer)
 
+        if self.chkbMoveFolder.isChecked() and self.isPartSelected:
+            self.movedObjects.append(self.selContainer)
+
         """Move"""
         for obj in self.movedObjects:
             if hasattr(obj, "Placement"):

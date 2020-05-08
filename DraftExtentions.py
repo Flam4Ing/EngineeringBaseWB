@@ -7,6 +7,8 @@ import Draft
 import clsDINRailTS35
 import clsWiringDuct
 from pivy import coin
+import draftguitools.gui_trackers as trackers
+import Utils
 
 class PlaceDeviceOnPoint(DraftTools.Creator):
     "this class will put shape after the user clicks a point on the screen"
@@ -91,8 +93,8 @@ class PlaceOnDraftGrid(DraftTools.Creator):
             self.ui.pointUi(name)
             self.ui.extUi()
             self.call = self.view.addEventCallback("SoEvent",self.action)
-            self.rect = DraftTools.rectangleTracker()
-            DraftTools.msg(DraftTools.translate("draft", "Pick first point:")+"\n")
+            self.rect = trackers.rectangleTracker()
+            Utils.EB_Print.print_msg(DraftTools.translate("draft", "Pick first point:")+"\n")
 
     def finish(self,closed=False,cont=False):
         "terminates the operation and closes the poly if asked"
@@ -191,7 +193,7 @@ class PlaceOnDraftGrid(DraftTools.Creator):
 
     def numericInput(self,numx,numy,numz):
         "this function gets called by the toolbar when valid x, y, and z have been entered there"
-        self.point = Vector(numx,numy,numz)
+        self.point = FreeCAD.Vector(numx,numy,numz)
         self.appendPoint(self.point)
 
     def appendPoint(self,point):
@@ -200,7 +202,7 @@ class PlaceOnDraftGrid(DraftTools.Creator):
             self.rect.update(point)
             self.createObject()
         else:
-            DraftTools.msg(DraftTools.translate("draft", "Pick opposite point:")+"\n")
+            Utils.EB_Print.print_msg(DraftTools.translate("draft", "Pick opposite point:")+"\n")
             self.ui.setRelative()
             self.rect.setorigin(point)
             self.rect.on()

@@ -15,6 +15,7 @@ def GetEBObjectMaker(DeviceType="EBDevice"):
     d.addProperty("App::PropertyString", "OID", "Engineering Base Information", "ID Nummer")
     d.addProperty("Part::PropertyPartShape", "EBShape", "Engineering Base Information", "EB Shape")
     d.addProperty("Part::PropertyPartShape", "PositionLine", "Engineering Base Information", "Position line")
+    d.addProperty("App::PropertyBool", "fixedPosition", "Engineering Base Information")
     return d
 
 

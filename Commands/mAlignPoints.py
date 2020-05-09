@@ -16,22 +16,6 @@ class SelObserverPointToPoint:
         self.GetSelTreeViewElement()
 
 
-    def GetSelTreeViewElement(self):
-        selTreeView = FreeCADGui.Selection.getSelectionEx()
-        if len(selTreeView) > 0:
-            self.selContainer = selTreeView[0].Object
-            if (self.selContainer.isDerivedFrom('App::DocumentObjectGroup')):
-                self.chkbMoveFolder.setText("Move selected folder <<" + self.selContainer.Label + ">> ?")
-                self.isFolderSelected = True
-            else:
-                self.isFolderSelected = False
-
-            if (self.selContainer.isDerivedFrom('App::Part')):
-                self.chkbMoveFolder.setText("Move selected Part <<" + self.selContainer.Label + ">> ?")
-                self.isPartSelected = True
-            else:
-                self.isPartSelected = False
-
 
     def createGUI(self):
         self.form = QtGui.QWidget()
@@ -95,7 +79,6 @@ class SelObserverPointToPoint:
             subElemetnName = str(sub)
             self.stack.append([objectName, subElemetnName,docName])
 
-
         if len(self.stack) == 1:
             self.lblPromt.setText("Select point on Second object!")
         if len(self.stack) == 2:
@@ -106,7 +89,6 @@ class SelObserverPointToPoint:
             self.btnX.setVisible(True)
             self.btnY.setVisible(True)
             self.btnZ.setVisible(True)
-            self.chkbMoveFolder.setVisible(True)
 
 
             """Do Job"""
@@ -115,7 +97,23 @@ class SelObserverPointToPoint:
             """Clean all"""
             self.CleanAll()
 
+    def GetSelTreeViewElement(self):
+        selTreeView = FreeCADGui.Selection.getSelectionEx()
+        if len(selTreeView) > 0:
+            self.selContainer = selTreeView[0].Object
+            if (self.selContainer.isDerivedFrom('App::DocumentObjectGroup')):
+                self.chkbMoveFolder.setVisible(True)
+                self.chkbMoveFolder.setText("Move selected folder <<" + self.selContainer.Label + ">> ?")
+                self.isFolderSelected = True
+            else:
+                self.isFolderSelected = False
 
+            if (self.selContainer.isDerivedFrom('App::Part')):
+                self.chkbMoveFolder.setVisible(True)
+                self.chkbMoveFolder.setText("Move selected Part <<" + self.selContainer.Label + ">> ?")
+                self.isPartSelected = True
+            else:
+                self.isPartSelected = False
 
 
     def GetSelectedObjects(self):

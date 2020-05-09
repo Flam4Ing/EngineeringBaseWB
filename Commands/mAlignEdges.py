@@ -44,6 +44,7 @@ class SelObserverEdgeToEdge:
         self.btnAlignFaces.setVisible(False)
         layout.addWidget(self.btnAlignFaces, 4, 1)
 
+
     def CleanAll(self):
         FreeCAD.ActiveDocument.recompute()
         try:
@@ -82,20 +83,20 @@ class SelObserverEdgeToEdge:
         if len(self.stack) == 1:
             self.lblPromt.setText("Select edge on Second object")
         if len(self.stack) == 2:
+            """Update Gui"""
             self.lblPromt.setVisible(False)
             self.btnRotate.setVisible(True)
             self.btnJointEdges.setVisible(True)
             self.btnAlignFaces.setVisible(True)
             self.lblInfo.setVisible(True)
 
+            """Do Job"""
             self.GetSelectedObjects()
-            self.Flip()
+            # self.Flip()
             #self.Move()
 
             """Clean all"""
             self.CleanAll()
-
-
 
     def GetSelectedObjects(self):
         FreeCAD.ActiveDocument.recompute()
@@ -114,17 +115,17 @@ class SelObserverEdgeToEdge:
         self.edgeB_MidPoint = (self.edgeB_EndPoint + self.edgeB_StartPoint).multiply(0.5)
         self.va = (self.edgeA_EndPoint - self.edgeA_StartPoint).normalize()
         self.vb = (self.edgeB_EndPoint - self.edgeB_StartPoint).normalize()
-        # print(self.objB.Name)
-        # print("EdgeB-" + str(edgeB_Number) + " Length-" + str(self.edgeB.Length) +"mm")
+
+
 
     def Flip(self):
         FreeCAD.ActiveDocument.openTransaction("Align edge - rotate")
         self.GetSelectedObjects()
-        self.Rot1()
+        self.Rotate()
         FreeCAD.ActiveDocument.commitTransaction()
 
 
-    def Rot1(self):
+    def Rotate(self):
         if colinearEdges(self.edgeA, self.edgeB):
             # print(angleBetween(self.edgeA, self.edgeB))
             rot_axis = FreeCAD.Base.Vector(0, 0, 1).cross(edgeToVector(self.edgeA))
@@ -138,7 +139,8 @@ class SelObserverEdgeToEdge:
         self.objA.Placement = new_plm.multiply(self.objA.Placement)
 
 
-    def Rot2(self):
+
+    def RotFromDraft(self):
         if colinearEdges(self.edgeA, self.edgeB):
             rot_axis = FreeCAD.Base.Vector(0, 0, 1).cross(edgeToVector(self.edgeA))
             rot_center = self.edgeA_MidPoint
@@ -168,6 +170,8 @@ class SelObserverEdgeToEdge:
 
         MVector = self.objA.Placement.Base - distatceVector
         self.objA.Placement.Base = MVector
+
+
         FreeCAD.ActiveDocument.commitTransaction()
         FreeCAD.ActiveDocument.recompute()
 

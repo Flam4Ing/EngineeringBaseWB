@@ -40,4 +40,5 @@ def PointOnCenterFace():
             oripl_Y += placementOrigine[1]
             oripl_Z += placementOrigine[2]
             Draft.makePoint(oripl_X, oripl_Y, oripl_Z)
+            FreeCAD.ActiveDocument.recompute()
 PointOnCenterFace()

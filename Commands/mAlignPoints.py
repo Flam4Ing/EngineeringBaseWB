@@ -26,29 +26,41 @@ class SelObserverPointToPoint:
         self.lblPromt.setText("Select point on First object!")
         layout.addWidget(self.lblPromt, 0, 0)
         #
-        self.btnXYZ = QtGui.QPushButton("Move XYZ")
-        self.btnXYZ.clicked.connect(self.MoveXYZ)
-        self.btnXYZ.setVisible(False)
-        layout.addWidget(self.btnXYZ, 1, 1)
-        #
         self.btnX = QtGui.QPushButton("Move X")
         self.btnX.clicked.connect(self.MoveX)
         self.btnX.setVisible(False)
         layout.addWidget(self.btnX, 1, 0)
+        #
+        self.txtX = QtGui.QLineEdit()
+        self.txtX.setVisible(False)
+        layout.addWidget(self.txtX, 1, 1)
         #
         self.btnY = QtGui.QPushButton("Move Y")
         self.btnY.clicked.connect(self.MoveY)
         self.btnY.setVisible(False)
         layout.addWidget(self.btnY, 2, 0)
         #
+        self.txtY = QtGui.QLineEdit()
+        self.txtY.setVisible(False)
+        layout.addWidget(self.txtY, 2, 1)
+        #
         self.btnZ = QtGui.QPushButton("Move Z")
         self.btnZ.setVisible(False)
         self.btnZ.clicked.connect(self.MoveZ)
         layout.addWidget(self.btnZ, 3, 0)
         #
+        self.txtZ = QtGui.QLineEdit()
+        self.txtZ.setVisible(False)
+        layout.addWidget(self.txtZ, 3, 1)
+        #
+        self.btnXYZ = QtGui.QPushButton("Move XYZ")
+        self.btnXYZ.clicked.connect(self.MoveXYZ)
+        self.btnXYZ.setVisible(False)
+        layout.addWidget(self.btnXYZ, 4, 0)
+        #
         self.chkbMoveFolder = QtGui.QCheckBox()
         self.chkbMoveFolder.setVisible(False)
-        layout.addWidget(self.chkbMoveFolder, 4, 0)
+        layout.addWidget(self.chkbMoveFolder, 5, 0)
 
     def CleanAll(self):
         FreeCAD.ActiveDocument.recompute()
@@ -89,6 +101,9 @@ class SelObserverPointToPoint:
             self.btnX.setVisible(True)
             self.btnY.setVisible(True)
             self.btnZ.setVisible(True)
+            self.txtX.setVisible(True)
+            self.txtY.setVisible(True)
+            self.txtZ.setVisible(True)
 
 
             """Do Job"""
@@ -103,14 +118,14 @@ class SelObserverPointToPoint:
             self.selContainer = selTreeView[0].Object
             if (self.selContainer.isDerivedFrom('App::DocumentObjectGroup')):
                 self.chkbMoveFolder.setVisible(True)
-                self.chkbMoveFolder.setText("Move selected folder <<" + self.selContainer.Label + ">> ?")
+                self.chkbMoveFolder.setText("Move selected folder" + "\n" + self.selContainer.Label + " ?")
                 self.isFolderSelected = True
             else:
                 self.isFolderSelected = False
 
             if (self.selContainer.isDerivedFrom('App::Part')):
                 self.chkbMoveFolder.setVisible(True)
-                self.chkbMoveFolder.setText("Move selected Part <<" + self.selContainer.Label + ">> ?")
+                self.chkbMoveFolder.setText("Move selected Part" + "\n" + self.selContainer.Label + " ?")
                 self.isPartSelected = True
             else:
                 self.isPartSelected = False
@@ -127,6 +142,11 @@ class SelObserverPointToPoint:
         """Get distance to move"""
         self.Vector = self.pointB - self.pointA
 
+    def GetValue(self, value):
+        try:
+            return float(value)
+        except ValueError:
+            return 0
 
     def MoveXYZ(self):
         self.MoveSelections("xyz")
@@ -159,13 +179,25 @@ class SelObserverPointToPoint:
                 if direction == "xyz":
                     MVector = Pos0 + self.Vector
                 if direction == "x":
-                    Pos0.x = Pos0.x + self.Vector.x
+                    xShift = self.GetValue(self.txtX.text())
+                    if xShift != 0:
+                        Pos0.x = Pos0.x +  xShift
+                    else:
+                        Pos0.x = Pos0.x + self.Vector.x
                     MVector = Pos0
                 if direction == "y":
-                    Pos0.y = Pos0.y + self.Vector.y
+                    yShift = self.GetValue(self.txtY.text())
+                    if yShift != 0:
+                        Pos0.y = Pos0.y + yShift
+                    else:
+                        Pos0.y = Pos0.y + self.Vector.y
                     MVector = Pos0
                 if direction == "z":
-                    Pos0.z = Pos0.z + self.Vector.z
+                    zShift = self.GetValue(self.txtZ.text())
+                    if zShift != 0:
+                        Pos0.z = Pos0.z + zShift
+                    else:
+                        Pos0.z = Pos0.z + self.Vector.z
                     MVector = Pos0
                 obj.Placement.Base = MVector
         FreeCAD.ActiveDocument.commitTransaction()

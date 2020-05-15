@@ -1,4 +1,4 @@
-import WBAuxiliaries
+import EB_Auxiliaries
 import FreeCAD
 import Part
 import sys
@@ -22,7 +22,7 @@ def GetEBObjectMaker(DeviceType="EBDevice"):
 def GetTextObj(BMK="Test", BMKsize=20):
     '''"Print a short message when doing a recomputation, this method is mandatory" '''
     txtString = BMK
-    FontFile = WBAuxiliaries.fontFilePath()
+    FontFile = EB_Auxiliaries.fontFilePath()
     ff8 = FontFile.encode('utf8')
     Size = BMKsize
     Tracking = 0

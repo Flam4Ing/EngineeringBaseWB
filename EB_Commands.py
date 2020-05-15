@@ -1,4 +1,4 @@
-import WBAuxiliaries
+import EB_Auxiliaries
 import FreeCAD
 import FreeCADGui
 import Utils.EB_Geometry
@@ -8,7 +8,7 @@ class Get_EB_Shape():
     """My new command"""
 
     def GetResources(self):
-        return {'Pixmap': WBAuxiliaries.workbenchFolderPath() + "\Icons\ButtonDown.svg",
+        return {'Pixmap': EB_Auxiliaries.workbenchFolderPath() + "\Icons\ButtonDown.svg",
                 # the name of a svg file available in the resources
                 'Accel': "Shift+S",  # a default shortcut (optional)
                 'MenuText': "Get device from EB"}
@@ -30,7 +30,7 @@ class Get_EB_Shape():
 
 class Get_EB_Shape_Step():
     def GetResources(self):
-        return {'Pixmap': WBAuxiliaries.workbenchFolderPath() + "\Icons\ButtonDown_.svg",
+        return {'Pixmap': EB_Auxiliaries.workbenchFolderPath() + "\Icons\ButtonDown_.svg",
                 # the name of a svg file available in the resources
                 'MenuText': "Get device from EB as Step"}
 
@@ -49,7 +49,7 @@ class Get_EB_Shape_Step():
 
 class Add_EB_Shape_With_Shift():
     def GetResources(self):
-        return {'Pixmap': WBAuxiliaries.workbenchFolderPath() + "\Icons\Add.svg",
+        return {'Pixmap': EB_Auxiliaries.workbenchFolderPath() + "\Icons\Add.svg",
                 # the name of a svg file available in the resources
                 'MenuText': "Add device from EB with shift"}
 
@@ -68,7 +68,7 @@ class Add_EB_Shape_With_Shift():
 
 class Add_EB_Shape_With_Shift_Step():
     def GetResources(self):
-        return {'Pixmap': WBAuxiliaries.workbenchFolderPath() + "\Icons\Add_.svg",
+        return {'Pixmap': EB_Auxiliaries.workbenchFolderPath() + "\Icons\Add_.svg",
                 # the name of a svg file available in the resources
                 'MenuText': "Add device from EB with shift as step"}
 
@@ -87,7 +87,7 @@ class Add_EB_Shape_With_Shift_Step():
 
 class Add_EB_Step_Assembly():
     def GetResources(self):
-        return {'Pixmap': WBAuxiliaries.workbenchFolderPath() + "\Icons\Add_Step_Assembly.svg",
+        return {'Pixmap': EB_Auxiliaries.workbenchFolderPath() + "\Icons\Add_Step_Assembly.svg",
                 # the name of a svg file available in the resources
                 'MenuText': "Add device from EB as step assembly"}
 
@@ -106,7 +106,7 @@ class Add_EB_Step_Assembly():
 
 class Select_EB_Shape():
     def GetResources(self):
-        return {'Pixmap': WBAuxiliaries.workbenchFolderPath() + "\Icons\ButtonUp.svg",
+        return {'Pixmap': EB_Auxiliaries.workbenchFolderPath() + "\Icons\ButtonUp.svg",
                 # the name of a svg file available in the resources
                 'MenuText': "Select Device in EB"}
 
@@ -127,14 +127,14 @@ class Select_EB_Shape():
 class Clear_Console():
 
     def GetResources(self):
-        return {'Pixmap': WBAuxiliaries.workbenchFolderPath() + "\Icons\Delete.svg",
+        return {'Pixmap': EB_Auxiliaries.workbenchFolderPath() + "\Icons\Delete.svg",
                 # the name of a svg file available in the resources
                 'MenuText': "Clear Console"}
 
     def Activated(self):
-        import WBAuxiliaries
+        import EB_Auxiliaries
         import subprocess
-        fileDeletePYCfiles = WBAuxiliaries.scriptDeletePYCfilesPath()
+        fileDeletePYCfiles = EB_Auxiliaries.scriptDeletePYCfilesPath()
         subprocess.call("wscript.exe " + fileDeletePYCfiles)
 
         import PySide
@@ -157,7 +157,7 @@ class Clear_Console():
 
 class Get_DIN_Rail_TS35():
     def GetResources(self):
-        return {'Pixmap': WBAuxiliaries.workbenchFolderPath() + "\Icons\TS35.png",
+        return {'Pixmap': EB_Auxiliaries.workbenchFolderPath() + "\Icons\TS35.png",
                 'MenuText': "Get DIN rail TS35"}
 
     def Activated(self):
@@ -175,7 +175,7 @@ class Get_DIN_Rail_TS35():
 
 class Get_Terminal_Block():
     def GetResources(self):
-        return {'Pixmap': WBAuxiliaries.workbenchFolderPath() + "\Icons\Terminal.png",
+        return {'Pixmap': EB_Auxiliaries.workbenchFolderPath() + "\Icons\Terminal.png",
                 'MenuText': "Get terminal block"}
 
     def Activated(self):
@@ -193,13 +193,13 @@ class Get_Terminal_Block():
 
 class Get_GuiTab():
     def GetResources(self):
-        return {'Pixmap': WBAuxiliaries.workbenchFolderPath() + "\Icons\Simple.svg",
+        return {'Pixmap': EB_Auxiliaries.workbenchFolderPath() + "\Icons\Simple.svg",
                 'MenuText': "Get GuiTab"}
 
     def Activated(self):
         """Do something here"""
-        import GuiTab
-        GuiTab.CreateGui()
+        import EB_GuiCommandTab
+        EB_GuiCommandTab.CreateGui()
         return
 
     def IsActive(self):
@@ -211,14 +211,14 @@ class Get_GuiTab():
 
 class Move_Point_To_Point():
     def GetResources(self):
-        return {'Pixmap': WBAuxiliaries.workbenchFolderPath() + "\Icons\Draft_Move.svg",
+        return {'Pixmap': EB_Auxiliaries.workbenchFolderPath() + "\Icons\Draft_Move.svg",
                 'MenuText': "Move object by point to point"}
 
     def Activated(self):
         """Do something here"""
         # from Commands import mPoinToPoint
         # mPoinToPoint.DoIt()
-        WBAuxiliaries.RunCommand("mPoinToPoint.py")
+        EB_Auxiliaries.RunCommand("mPoinToPoint.py")
         return
 
     def IsActive(self):
@@ -230,7 +230,7 @@ class Move_Point_To_Point():
 
 class Mover_For_Object():
     def GetResources(self):
-        return {'Pixmap': WBAuxiliaries.workbenchFolderPath() + "\Icons\mMove.png",
+        return {'Pixmap': EB_Auxiliaries.workbenchFolderPath() + "\Icons\mMove.png",
                 'MenuText': "Move object"}
 
     def Activated(self):
@@ -249,12 +249,12 @@ class Mover_For_Object():
 
 class Set_Display_Mode_Wire_Frame():
     def GetResources(self):
-        return {'Pixmap': WBAuxiliaries.workbenchFolderPath() + "\Icons\Visibility_WireFrame.png",
+        return {'Pixmap': EB_Auxiliaries.workbenchFolderPath() + "\Icons\Visibility_WireFrame.png",
                 'MenuText': "Set display mode wireframe"}
 
     def Activated(self):
         """Do something here"""
-        WBAuxiliaries.RunCommand("VisibilitySetWireframe.py")
+        EB_Auxiliaries.RunCommand("VisibilitySetWireframe.py")
         return
 
     def IsActive(self):
@@ -266,12 +266,12 @@ class Set_Display_Mode_Wire_Frame():
 
 class Set_Display_Mode_Flat_Lines():
     def GetResources(self):
-        return {'Pixmap': WBAuxiliaries.workbenchFolderPath() + "\Icons\Visibility_FlatLines.png",
+        return {'Pixmap': EB_Auxiliaries.workbenchFolderPath() + "\Icons\Visibility_FlatLines.png",
                 'MenuText': "Set display mode wireframe"}
 
     def Activated(self):
         """Do something here"""
-        WBAuxiliaries.RunCommand("VisibilitySetFlatLines.py")
+        EB_Auxiliaries.RunCommand("VisibilitySetFlatLines.py")
         return
 
     def IsActive(self):
@@ -283,12 +283,12 @@ class Set_Display_Mode_Flat_Lines():
 
 class Set_Transparancy():
     def GetResources(self):
-        return {'Pixmap': WBAuxiliaries.workbenchFolderPath() + "\Icons\Visibility_Transparency.svg",
+        return {'Pixmap': EB_Auxiliaries.workbenchFolderPath() + "\Icons\Visibility_Transparency.svg",
                 'MenuText': "Set transparency"}
 
     def Activated(self):
         """Do something here"""
-        WBAuxiliaries.RunCommand("VisibilitySetTransparency.py")
+        EB_Auxiliaries.RunCommand("VisibilitySetTransparency.py")
         return
 
     def IsActive(self):
@@ -300,12 +300,12 @@ class Set_Transparancy():
 
 class Set_Visibility_True():
     def GetResources(self):
-        return {'Pixmap': WBAuxiliaries.workbenchFolderPath() + "\Icons\Visibility_True.svg",
+        return {'Pixmap': EB_Auxiliaries.workbenchFolderPath() + "\Icons\Visibility_True.svg",
                 'MenuText': "Set visibility true"}
 
     def Activated(self):
         """Do something here"""
-        WBAuxiliaries.RunCommand("VisibilitySetTrue.py")
+        EB_Auxiliaries.RunCommand("VisibilitySetTrue.py")
         return
 
     def IsActive(self):
@@ -317,7 +317,7 @@ class Set_Visibility_True():
 
 class Rotate_Sel_Object_15():
     def GetResources(self):
-        return {'Pixmap': WBAuxiliaries.workbenchFolderPath() + "\Icons\Rotate90.svg",
+        return {'Pixmap': EB_Auxiliaries.workbenchFolderPath() + "\Icons\Rotate90.svg",
                 'MenuText': "Rotate 15",
                 'ToolTip': 'Auxiliary tool to rotate a shape 15 degrees.\nSelect a face or edge of the object you want to rotate\n and it will be rotated 15 degrees using its normal as rotation\n axis'}
 
@@ -325,7 +325,7 @@ class Rotate_Sel_Object_15():
         """Do something here"""
         sel = FreeCADGui.Selection.getSelectionEx()
         if len(sel) == 0:
-            WBAuxiliaries.MsgDialog("Please select face or edge of shape!")
+            EB_Auxiliaries.MsgDialog("Please select face or edge of shape!")
             return
         if "Face" in str(sel[0].SubObjects[0]):
             selFace = sel[0].SubObjects[0]
@@ -336,7 +336,7 @@ class Rotate_Sel_Object_15():
             rot_center = Utils.EB_Geometry.centerLinePoint(selEdge)
             rot_axis = Utils.EB_Geometry.edgeToVector(selEdge)
         else:
-            WBAuxiliaries.MsgDialog("Please select face or edge of shape!")
+            EB_Auxiliaries.MsgDialog("Please select face or edge of shape!")
             return
         objA = sel[0].Object
         rot = FreeCAD.Rotation(rot_axis, 15)

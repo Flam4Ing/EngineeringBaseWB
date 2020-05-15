@@ -1,4 +1,4 @@
-import WBAuxiliaries
+import EB_Auxiliaries
 import clsConnectToEB
 import clsEBObjectMaker
 import FreeCAD
@@ -14,7 +14,7 @@ class TerminalBlock:
     def execute(self, fp):
         '''"Print a short message when doing a recomputation, this method is mandatory" '''
         sh = []
-        stepFile = WBAuxiliaries.TerminalBlocksPath() + "\\" + fp.TerminalType
+        stepFile = EB_Auxiliaries.TerminalBlocksPath() + "\\" + fp.TerminalType
         t = Part.Shape()
         t.read(stepFile)
         x = t.BoundBox.XMax
@@ -47,7 +47,7 @@ def GetTerminalBlock():
     d = clsEBObjectMaker.GetEBObjectMaker("TerminalBlock")
     d.Label = "Terminal block"
     d.addProperty("App::PropertyInteger","Quantity","Terminal Block Properties","Terminals quantity").Quantity = 1
-    d.addProperty("App::PropertyEnumeration","TerminalType","Terminal Block Properties","Terminal type").TerminalType = os.listdir(WBAuxiliaries.TerminalBlocksPath())
+    d.addProperty("App::PropertyEnumeration","TerminalType","Terminal Block Properties","Terminal type").TerminalType = os.listdir(EB_Auxiliaries.TerminalBlocksPath())
     TerminalBlock(d)
     ViewProviderTerminalBlock(d.ViewObject)
     if len(FreeCADGui.Selection.getSelection()) > 0:

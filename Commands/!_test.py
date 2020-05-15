@@ -1,6 +1,6 @@
 import FreeCAD
 import FreeCADGui
-import WBAuxiliaries
+import EB_Auxiliaries
 import PySide.QtCore as QtCore
 import PySide.QtGui as QtGui
 # import drafttaskpanels.task_circulararray

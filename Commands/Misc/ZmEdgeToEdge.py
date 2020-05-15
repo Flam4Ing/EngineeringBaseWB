@@ -1,6 +1,6 @@
 import FreeCAD
 import FreeCADGui
-import WBAuxiliaries
+import EB_Auxiliaries
 
 #Beispiel
 def MoveEdgeToEdge():
@@ -82,7 +82,7 @@ class SelObserverEdgeToEdge:
             self.stack = []
 
 
-selGate = WBAuxiliaries.SelectionGate("Edge")
+selGate = EB_Auxiliaries.SelectionGate("Edge")
 FreeCADGui.Selection.addSelectionGate(selGate)
 observerEtE = SelObserverEdgeToEdge()
 FreeCADGui.Selection.addObserver(observerEtE)

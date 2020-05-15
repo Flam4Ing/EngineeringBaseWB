@@ -10,7 +10,7 @@ class EBWorkbench (Workbench):
 
     def Initialize(self):
         #"This function is executed when FreeCAD starts"
-        import EBCommands, MeasureEdges # import here all the needed files that create your FreeCAD commands
+        import EB_Commands, MeasureEdges # import here all the needed files that create your FreeCAD commands
         self.list = (["Clear_Console",
                     "Get_EB_Shape", 
                     "Get_EB_Shape_Step", 
@@ -53,9 +53,9 @@ class EBWorkbench (Workbench):
 
     def Deactivated(self):
         #"This function is executed when the workbench is deactivated"
-        import WBAuxiliaries
+        import EB_Auxiliaries
         import subprocess
-        fileDeletePYCfiles = WBAuxiliaries.scriptDeletePYCfilesPath()
+        fileDeletePYCfiles = EB_Auxiliaries.scriptDeletePYCfilesPath()
         subprocess.call("wscript.exe " + fileDeletePYCfiles)
         if hasattr(FreeCADGui,"draftToolBar"):
             FreeCADGui.draftToolBar.Deactivated()

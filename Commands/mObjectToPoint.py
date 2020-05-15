@@ -1,6 +1,6 @@
 import FreeCAD
 import FreeCADGui
-import WBAuxiliaries
+import EB_Auxiliaries
 
 
 def MoveToPoint():
@@ -19,7 +19,7 @@ class SelObserverObjectToPoint:
         self.view = FreeCADGui.ActiveDocument.ActiveView
         self.stack = []
         print("Please select face on first object!")
-        selGate = WBAuxiliaries.SelectionGate("Face")
+        selGate = EB_Auxiliaries.SelectionGate("Face")
         FreeCADGui.Selection.addSelectionGate(selGate)
 
     def addSelection(self, doc, obj, sub, pnt):  # Selection object
@@ -34,7 +34,7 @@ class SelObserverObjectToPoint:
         if len(self.stack) == 1:
             print("Please select point on second object!")
             FreeCADGui.Selection.removeSelectionGate()
-            selGate = WBAuxiliaries.SelectionGate("Vertex")
+            selGate = EB_Auxiliaries.SelectionGate("Vertex")
             FreeCADGui.Selection.addSelectionGate(selGate)
         if len(self.stack) == 2:
             ObjA_Name = self.stack[0][0]

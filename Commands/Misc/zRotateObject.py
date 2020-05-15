@@ -1,6 +1,6 @@
 import FreeCAD
 import FreeCADGui
-import WBAuxiliaries
+import EB_Auxiliaries
 
 class RotateObject:
     def __init__(self, view):
@@ -21,7 +21,7 @@ class RotateObject:
 
     def Roatate(self):
         if len(FreeCADGui.Selection.getSelection()) == 0:
-            WBAuxiliaries.MsgDialog ("Please select one object!")
+            EB_Auxiliaries.MsgDialog ("Please select one object!")
             return
         
         rot = [FreeCAD.Rotation(90,0,0),

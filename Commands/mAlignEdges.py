@@ -1,7 +1,7 @@
 import FreeCAD
 import FreeCADGui
 from PySide import QtGui,QtCore
-import WBAuxiliaries
+import EB_Auxiliaries
 from Utils.EB_Geometry import *
 import Draft
 import Part
@@ -202,7 +202,7 @@ class SelObserverEdgeToEdge:
 def AlignEdges():
     global observer
     try:
-        selGate = WBAuxiliaries.SelectionGate("Edge")
+        selGate = EB_Auxiliaries.SelectionGate("Edge")
         FreeCADGui.Selection.addSelectionGate(selGate)
         observer = SelObserverEdgeToEdge()
         FreeCADGui.Selection.addObserver(observer)

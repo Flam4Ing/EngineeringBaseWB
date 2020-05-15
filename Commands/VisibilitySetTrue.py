@@ -1,7 +1,7 @@
-import WBAuxiliaries
+import EB_Auxiliaries
 
 def VisibilitySetTrue():
-    selObjects = WBAuxiliaries.GetSelectionWithSubObjects()
+    selObjects = EB_Auxiliaries.GetSelectionWithSubObjects()
     if len(selObjects) != 0:
         for obj in selObjects:
             #print(obj.ViewObject.Visibility)

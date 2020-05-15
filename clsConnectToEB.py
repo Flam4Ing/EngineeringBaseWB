@@ -1,4 +1,4 @@
-import WBAuxiliaries
+import EB_Auxiliaries
 import FreeCAD
 import os
 import subprocess
@@ -14,17 +14,17 @@ class ConnectToEB:
 
     def LetWriteFileFromEB(self):
         import subprocess
-        if WBAuxiliaries.testWithoutEB():
-            arguments = WBAuxiliaries.vbsScriptsPath() + " " + "TESTwithoutEB"
+        if EB_Auxiliaries.testWithoutEB():
+            arguments = EB_Auxiliaries.vbsScriptsPath() + " " + "TESTwithoutEB"
         else:
-            arguments = WBAuxiliaries.vbsScriptsPath()
+            arguments = EB_Auxiliaries.vbsScriptsPath()
 
-        fileGetEBShape = WBAuxiliaries.scriptGetEBShapePath()
+        fileGetEBShape = EB_Auxiliaries.scriptGetEBShapePath()
         # subprocess.call("wscript.exe C:\Users\heinrich\Desktop\GetEBshape.vbs " + arg)
         subprocess.call("wscript.exe " + fileGetEBShape + " " + arguments)
 
     def ReadFileFromEB(self):
-        fileEBshapeExported = WBAuxiliaries.textEBShapeExportedPath()
+        fileEBshapeExported = EB_Auxiliaries.textEBShapeExportedPath()
         if sys.version_info.major < 3:
             with open(fileEBshapeExported) as f:
                 content = f.readlines()

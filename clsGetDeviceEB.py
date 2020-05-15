@@ -1,4 +1,4 @@
-import WBAuxiliaries
+import EB_Auxiliaries
 import clsConnectToEB
 import clsEBObjectMaker
 import FreeCAD
@@ -54,7 +54,7 @@ class ViewProviderEBDevice:
 def GetEBDevice(stepShape=False):
     deviceProperties = clsConnectToEB.ConnectToEB().GetShapeProperties()
     if float(deviceProperties[3]) == 0 or float(deviceProperties[4]) == 0 or float(deviceProperties[5]) == 0:
-        WBAuxiliaries.MsgDialog("Width or Height or Depth from Device is null!")
+        EB_Auxiliaries.MsgDialog("Width or Height or Depth from Device is null!")
         return #Keine Bemassung in EB
     d = clsEBObjectMaker.GetEBObjectMaker("EBDevice")
     d.addProperty("App::PropertyFloat","BoxWidth","Engineering Base Information","Device width").BoxWidth = float(deviceProperties[3])
@@ -80,7 +80,7 @@ def GetEBDevice(stepShape=False):
 
 def AddEBDeviceWithShift(stepShape=False):
     if len(FreeCADGui.Selection.getSelection()) == 0:
-        WBAuxiliaries.MsgDialog ("Please select EB device!")
+        EB_Auxiliaries.MsgDialog ("Please select EB device!")
         return
     sel = FreeCADGui.Selection.getSelection()[0]
     
@@ -115,7 +115,7 @@ def AddEBDeviceWithShift(stepShape=False):
         #except:
             #print("Failure to place the EB device!")
     else:
-        WBAuxiliaries.MsgDialog ("Please select EB device!")
+        EB_Auxiliaries.MsgDialog ("Please select EB device!")
 
 def GetSTEPAssembly():
     deviceProperties = clsConnectToEB.ConnectToEB().GetShapeProperties()
@@ -124,5 +124,5 @@ def GetSTEPAssembly():
     if exists:
         ImportGui.insert(file_path, FreeCAD.ActiveDocument.Name)
     else:
-        WBAuxiliaries.MsgDialog("STEP file doesn't exist!")
+        EB_Auxiliaries.MsgDialog("STEP file doesn't exist!")
 

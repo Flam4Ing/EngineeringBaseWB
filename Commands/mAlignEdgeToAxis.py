@@ -1,60 +1,9 @@
 import FreeCAD
 import FreeCADGui
 from PySide import QtGui,QtCore
-import WBAuxiliaries
+import EB_Auxiliaries
 from Utils.EB_Geometry import *
-import Draft
-
-def MoveEdgeToEdge():
-    sel = FreeCAD.Gui.Selection.getSelectionEx()
-    objA = sel[0].Object
-    edgeA = sel[0].SubObjects[0]
-    # edgeB = sel[1].SubObjects[0]
-    # transform object A placement
-    # edge vector
-    edgeAEndPoint = edgeA.lastVertex(True).Point
-    edgeAStartPoint = edgeA.firstVertex(True).Point
-    # edgeBEndPoint = edgeB.lastVertex(True).Point
-    # edgeBStartPoint = edgeB.firstVertex(True).Point
-
-    va = (edgeAEndPoint - edgeAStartPoint).normalize()
-    # vb = (edgeBEndPoint - edgeBStartPoint).normalize()
-    vb = FreeCAD.Vector(1,0,0)
-    # rot centre
-    # centre = edgeAStartPoint
-    centre = sel[0].SubObjects[1].Point
-    # new placement
-    print(FreeCAD.Rotation(va, vb).Angle)
-    new_plm = FreeCAD.Placement(FreeCAD.Vector(0, 0, 0), FreeCAD.Rotation(va, vb), centre)
-    # apply placement
-    objA.Placement = new_plm.multiply(objA.Placement)
-# MoveEdgeToEdge()
-
-def reset_SelectedObjects(Selection, info=0):
-    """ Reset the selection changed by Draft.rotate for example
-    Selection is the original selection you want to reset. Must be saved before any
-    change!
-    """
-    FreeCADGui.Selection.clearSelection()
-    for Sel_i_Object in Selection:
-        m_DocumentName = Sel_i_Object.DocumentName
-        m_ObjectName = Sel_i_Object.ObjectName
-        m_Object = Sel_i_Object.Object
-        if info != 0:
-            print_msg(str(m_Object))
-        if len(Sel_i_Object.SubElementNames) == 0:
-            if info != 0:
-                print_msg(Sel_i_Object.ObjectName)
-            FreeCADGui.Selection.addSelection(m_Object)
-        else:
-            for m_SubElementName in Sel_i_Object.SubElementNames:
-                if info != 0:
-                    m_finalName = str(m_DocumentName) + "." + str(m_ObjectName) + "." + str(m_SubElementName)
-                    print_msg(m_finalName)
-                FreeCADGui.Selection.addSelection(m_Object, str(m_SubElementName))
-
-
-
+# import Draft
 
 
 class EdgeParallelToAxis:
@@ -110,7 +59,7 @@ class EdgeParallelToAxis:
             self.movedObjects.append(self.objA)
 
         if self.chkbMoveFolder.isChecked() and self.isFolderSelected:
-            self.movedObjects = WBAuxiliaries.GetChildrenFromObject(self.selContainer)
+            self.movedObjects = EB_Auxiliaries.GetChildrenFromObject(self.selContainer)
 
         if self.chkbMoveFolder.isChecked() and self.isPartSelected:
             self.movedObjects.append(self.selContainer)

@@ -1,7 +1,7 @@
 import FreeCAD
 import FreeCADGui
 
-import WBAuxiliaries
+import EB_Auxiliaries
 
 
 class SelObserverPointToPoint:
@@ -37,7 +37,7 @@ class SelObserverPointToPoint:
             self.stack = []
 
 
-selGate = WBAuxiliaries.SelectionGate("Vertex")
+selGate = EB_Auxiliaries.SelectionGate("Vertex")
 FreeCADGui.Selection.addSelectionGate(selGate)
 observer = SelObserverPointToPoint()
 FreeCADGui.Selection.addObserver(observer)

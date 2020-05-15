@@ -1,4 +1,4 @@
-import WBAuxiliaries
+import EB_Auxiliaries
 import FreeCAD
 import FreeCADGui
 import Part

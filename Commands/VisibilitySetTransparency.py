@@ -3,7 +3,7 @@ from PySide import QtGui, QtCore
 from PySide.QtCore import *
 from PySide.QtGui import *
 import FreeCADGui
-import WBAuxiliaries
+import EB_Auxiliaries
 
 
 class TransparencyControl(QtGui.QWidget):
@@ -31,7 +31,7 @@ class TransparencyControl(QtGui.QWidget):
         self.setWindowTitle('Set Transparency')
 
     def clickedButton(self):
-        selObjects = WBAuxiliaries.GetSelectionWithSubObjects()
+        selObjects = EB_Auxiliaries.GetSelectionWithSubObjects()
         if len(selObjects) != 0:
             transparencyValue = int(self.leEdit.text())
             for obj in selObjects:

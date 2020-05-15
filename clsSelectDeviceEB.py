@@ -1,4 +1,4 @@
-﻿import WBAuxiliaries
+﻿import EB_Auxiliaries
 import FreeCAD
 import FreeCADGui
 import subprocess
@@ -6,19 +6,19 @@ import subprocess
 class SelectEBObject:
     def GetSelection(self):
         if len(FreeCADGui.Selection.getSelection()) == 0:
-            WBAuxiliaries.MsgDialog("Please select EB device!")
+            EB_Auxiliaries.MsgDialog("Please select EB device!")
             return
         sel = FreeCADGui.Selection.getSelection()[0]
         if hasattr(sel, "OID"):
             try:
-                if WBAuxiliaries.testWithoutEB():
+                if EB_Auxiliaries.testWithoutEB():
                     arguments = sel.OID + " " + "TESTwithoutEB"
                 else:
                     arguments = sel.OID
 
-                fileSelectDeviceInEB = WBAuxiliaries.scriptSelectShapeInEBPath()
+                fileSelectDeviceInEB = EB_Auxiliaries.scriptSelectShapeInEBPath()
                 subprocess.call("wscript.exe " + fileSelectDeviceInEB + " " + arguments)
             except:
-                WBAuxiliaries.MsgDialog("Please select EB device!")
+                EB_Auxiliaries.MsgDialog("Please select EB device!")
         else:
-            WBAuxiliaries.MsgDialog("Please select EB device!")
+            EB_Auxiliaries.MsgDialog("Please select EB device!")

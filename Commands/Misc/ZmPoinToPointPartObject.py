@@ -1,7 +1,7 @@
 import FreeCAD
 import FreeCADGui
 from PySide import QtGui,QtCore
-import WBAuxiliaries
+import EB_Auxiliaries
 global selObject
 global observer
 
@@ -132,15 +132,15 @@ def MoveObject():
         selObject = selection[0].Object
 
         if len(selection) != 1:
-            WBAuxiliaries.MsgDialog("Please first select one Part Object!")
+            EB_Auxiliaries.MsgDialog("Please first select one Part Object!")
             return
         if not (selObject.isDerivedFrom('App::DocumentObjectGroup') or selObject.isDerivedFrom('App::Part')):
-            WBAuxiliaries.MsgDialog("Please first select one Part Object!")
+            EB_Auxiliaries.MsgDialog("Please first select one Part Object!")
             return
 
         def StartObserver(movedObjects):
             global observer
-            selGate = WBAuxiliaries.SelectionGate("Vertex")
+            selGate = EB_Auxiliaries.SelectionGate("Vertex")
             FreeCADGui.Selection.addSelectionGate(selGate)
             observer = SelObserverPointToPoint(movedObjects)
             FreeCADGui.Selection.addObserver(observer)
@@ -152,7 +152,7 @@ def MoveObject():
             StartObserver(movedObjects)
 
         if selObject.isDerivedFrom('App::DocumentObjectGroup'):
-            movedObjects = WBAuxiliaries.GetSelectionWithSubObjects()
+            movedObjects = EB_Auxiliaries.GetSelectionWithSubObjects()
             StartObserver(movedObjects)
 
         FreeCADGui.Selection.clearSelection()

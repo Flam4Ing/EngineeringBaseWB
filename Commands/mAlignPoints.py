@@ -1,7 +1,7 @@
 import FreeCAD
 import FreeCADGui
 from PySide import QtGui,QtCore
-import WBAuxiliaries
+import EB_Auxiliaries
 import  traceback
 from Utils.EB_Geometry import *
 
@@ -167,7 +167,7 @@ class SelObserverPointToPoint:
             self.movedObjects.append(self.objA)
 
         if self.chkbMoveFolder.isChecked() and self.isFolderSelected:
-            self.movedObjects = WBAuxiliaries.GetChildrenFromObject(self.selContainer)
+            self.movedObjects = EB_Auxiliaries.GetChildrenFromObject(self.selContainer)
 
         if self.chkbMoveFolder.isChecked() and self.isPartSelected:
             self.movedObjects.append(self.selContainer)
@@ -206,7 +206,7 @@ class SelObserverPointToPoint:
 def AlignPoints():
     global observer
     try:
-        selGate = WBAuxiliaries.SelectionGate("Vertex")
+        selGate = EB_Auxiliaries.SelectionGate("Vertex")
         FreeCADGui.Selection.addSelectionGate(selGate)
         observer = SelObserverPointToPoint()
         FreeCADGui.Selection.addObserver(observer)

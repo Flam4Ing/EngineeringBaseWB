@@ -1,6 +1,6 @@
 import FreeCAD
 import FreeCADGui
-import WBAuxiliaries
+import EB_Auxiliaries
 import Draft
 
 class RotateObject:
@@ -30,7 +30,7 @@ class RotateObject:
                     print("Rotate is escaped!")
     def Roatate(self, rotateAxis):
         if len(FreeCADGui.Selection.getSelection()) == 0:
-            WBAuxiliaries.MsgDialog ("Please select one object!")
+            EB_Auxiliaries.MsgDialog ("Please select one object!")
             return
         
         sel = FreeCADGui.Selection.getSelection()[0]

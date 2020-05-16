@@ -4,7 +4,7 @@ import Part
 import FreeCADGui
 import DraftTools
 import Draft
-import clsDINRailTS35
+import EB_D_DINRailTS35
 import clsWiringDuct
 from pivy import coin
 import draftguitools.gui_trackers as trackers
@@ -63,8 +63,8 @@ class PlaceDeviceOnPoint(DraftTools.Creator):
                     sh = clsGetDeviceEB.GetEBDevice()
                     sh.Placement.Base = self.point
                 if self.ShapeType == "TS35":
-                    import clsDINRailTS35
-                    sh = clsDINRailTS35.GetDINRailTS35()
+                    import EB_D_DINRailTS35
+                    sh = EB_D_DINRailTS35.GetDINRailTS35()
                     sh.Placement.Base = self.point
                 
                 FreeCADGui.Snapper.off()
@@ -210,7 +210,7 @@ class PlaceOnDraftGrid(DraftTools.Creator):
                 self.planetrack.set(point)
 
     def CreateDINRail(self,length,placement):
-        r = clsDINRailTS35.GetDINRailTS35(length)
+        r = EB_D_DINRailTS35.GetDINRailTS35(length)
         r.Placement = placement
         FreeCAD.ActiveDocument.recompute()
 

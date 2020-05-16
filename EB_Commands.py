@@ -349,6 +349,61 @@ class Rotate_Sel_Object_15():
         else:
             return False
 
+class EnableConnectionToEB():
+    def GetResources(self):
+        return {'Pixmap': EB_Auxiliaries.workbenchFolderPath() + "\Icons\ConnectionToEB.svg",
+                'MenuText': "Enable connection to EB",
+                'ToolTip': 'Enable connection to EB'}
+
+    def Activated(self):
+        """Do something here"""
+        # Test workbench without Ingeneering Base installation
+        FreeCAD.testWithOutEB = False
+        return
+
+    def IsActive(self):
+        if FreeCAD.testWithOutEB:
+            return True
+        else:
+            return False
+
+class DisableConnectionToEB():
+    def GetResources(self):
+        return {'Pixmap': EB_Auxiliaries.workbenchFolderPath() + "\Icons\TestMode.svg",
+                'MenuText': "Disable connection to EB",
+                'ToolTip': 'Disable connection to EB'}
+
+    def Activated(self):
+        """Do something here"""
+        # Test workbench without Ingeneering Base installation
+        FreeCAD.testWithOutEB = True
+        return
+
+    def IsActive(self):
+        if FreeCAD.testWithOutEB:
+            return False
+        else:
+            return True
+
+class ShowTestsConsole():
+    def GetResources(self):
+        return {'Pixmap': EB_Auxiliaries.workbenchFolderPath() + "\Icons\ShowTestsConsole.svg",
+                'MenuText': "Show Tests Console",
+                'ToolTip': 'ShowTestsConsole'}
+
+    def Activated(self):
+        """Do something here"""
+        # Test workbench without Ingeneering Base installation
+        import EB_GuiTestTab
+        EB_GuiTestTab.CreateGui()
+        return
+
+    def IsActive(self):
+        if FreeCAD.testWithOutEB:
+            return True
+        else:
+            return False
+
 
 FreeCADGui.addCommand('Clear_Console', Clear_Console())
 FreeCADGui.addCommand('Get_EB_Shape', Get_EB_Shape())
@@ -367,4 +422,6 @@ FreeCADGui.addCommand('Set_Display_Mode_Flat_Lines', Set_Display_Mode_Flat_Lines
 FreeCADGui.addCommand('Set_Transparancy', Set_Transparancy())
 FreeCADGui.addCommand('Set_Visibility_True', Set_Visibility_True())
 FreeCADGui.addCommand('Rotate_Sel_Object_15', Rotate_Sel_Object_15())
-
+FreeCADGui.addCommand('EnableConnectionToEB', EnableConnectionToEB())
+FreeCADGui.addCommand('DisableConnectionToEB', DisableConnectionToEB())
+FreeCADGui.addCommand('ShowTestsConsole', ShowTestsConsole())

@@ -1,9 +1,0 @@
-﻿+fCTRL Geräte -F1
--F1
-L:\COMMON\WRITE\Boldt\EB PlugIns\s200.step
-35
-88
-76
-00000000-0000-0000-0000-000004A4C85E
-Sicherungsautomat 2pol. B16 S202P-B16
-1

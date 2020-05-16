@@ -3,7 +3,7 @@ import FreeCADGui
 
 
 class EBWorkbench (Workbench):
-
+    FreeCAD.testWithOutEB = True
     MenuText = "Engineering Base"
     ToolTip = "Engineering Base workbench"
     #Icon = """paste here the contents of a 16x16 xpm icon"""
@@ -11,8 +11,13 @@ class EBWorkbench (Workbench):
     def Initialize(self):
         #"This function is executed when FreeCAD starts"
         import EB_Commands, MeasureEdges # import here all the needed files that create your FreeCAD commands
-        self.list = (["Clear_Console",
-                    "Get_EB_Shape", 
+        self.listTests = (["Clear_Console",
+                    "EnableConnectionToEB",
+                    "DisableConnectionToEB",
+                    "ShowTestsConsole"])
+        self.appendToolbar("EB Tests", self.listTests)
+
+        self.list = (["Get_EB_Shape",
                     "Get_EB_Shape_Step", 
                     "Add_EB_Shape_With_Shift",
                     "Add_EB_Shape_With_Shift_Step",

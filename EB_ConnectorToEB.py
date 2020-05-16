@@ -1,5 +1,6 @@
 import EB_Auxiliaries
 import sys
+import FreeCAD
 
 
 class ExportedDeviceFromEB:
@@ -20,9 +21,9 @@ class ExportedDeviceFromEB:
     def LetWriteFileWithDeviceInfoFromEB(self):
         """VBScript receives the path as an argument
             and writes the txt-file to a given folder.
-            If VBScript receives to arguments, then no connection to EB"""
+            If VBScript receives two arguments, then no connection to EB"""
         import subprocess
-        if EB_Auxiliaries.testWithoutEB():
+        if FreeCAD.testWithOutEB:
             arguments = EB_Auxiliaries.vbsScriptsPath() + " " + "TESTwithoutEB"
         else:
             arguments = EB_Auxiliaries.vbsScriptsPath()
@@ -57,3 +58,8 @@ if __name__ == "__main__":
     print(d.BMK)
     print(d.PathToSTEPfile)
     print(str(d.BoxWidth))
+    print(str(d.BoxHeight))
+    print(str(d.BoxDepth))
+    print(d.DeviceName)
+    print(d.OID)
+    print(str(d.TerminalsNumber))

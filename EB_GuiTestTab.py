@@ -76,4 +76,4 @@ def CreateGui():
     mWindow = FreeCAD.Gui.getMainWindow()
     createDockWindows(mWindow)
 
-CreateGui()
+

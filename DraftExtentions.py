@@ -9,6 +9,8 @@ import clsWiringDuct
 from pivy import coin
 import draftguitools.gui_trackers as trackers
 import Utils
+import EB_D_WiringDuct
+
 
 class PlaceDeviceOnPoint(DraftTools.Creator):
     "this class will put shape after the user clicks a point on the screen"
@@ -215,7 +217,8 @@ class PlaceOnDraftGrid(DraftTools.Creator):
         FreeCAD.ActiveDocument.recompute()
 
     def CreateWiringDuct(self,length,placement):
-        d = clsWiringDuct.GetWiringDuct(length)
+        d = EB_D_WiringDuct.GetWiringDuct(length)
+
         d.Placement = placement
         FreeCAD.ActiveDocument.recompute()
 

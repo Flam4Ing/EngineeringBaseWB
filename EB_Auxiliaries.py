@@ -2,6 +2,7 @@ from PySide import QtCore, QtGui
 import os
 import sys
 import FreeCADGui
+import FreeCAD
 
 #------------------------------------------------------------------------------
 def testWithoutEB():
@@ -142,7 +143,12 @@ class SelectionGate(object):
             return True
         return False
 
-
+#------------------------------------------------------------------------------
+def DeleteObjectbyLabel(obj):
+    try:
+        FreeCAD.getDocument(str(FreeCAD.activeDocument().Name)).removeObject(obj.Label)
+    except:
+        pass
 #------------------------------------------------------------------------------
 def a_clear_console():
     '''clearing previous messages in Python console and Report view'''

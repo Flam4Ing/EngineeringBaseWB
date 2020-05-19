@@ -399,7 +399,7 @@ class ShowTestsConsole():
         return
 
     def IsActive(self):
-        if FreeCAD.testWithOutEB:
+        if FreeCADGui.ActiveDocument:
             return True
         else:
             return False

@@ -1,6 +1,6 @@
 import FreeCAD
-import FreeCADGui
 import Part
+import EB_Auxiliaries
 
 
 class WiringDuct:
@@ -12,30 +12,37 @@ class WiringDuct:
         self.wdHeight = fp.Height
         self.wdLength = fp.Length
         duct = []
-
-        import BOPTools.JoinFeatures
-        j = BOPTools.JoinFeatures.makeCutout(name='Cutout')
+        """Create shapes"""
         objBase = self.CreateBaseObject()
         objTool = self.CreateToolObject()
         if fp.isCover:
             objCover = self.CreateCover()
             duct.append(objCover.Shape)
-        j.Base = objBase
-        j.Tool = objTool
-        j.Proxy.execute(j)
-        j.purgeTouched()
-        objBase.ViewObject.hide()
-        objTool.ViewObject.hide()
-        duct.append(j.Shape)
+        else:
+            objCover = None
+
+        """Create holes side of in wiring duct"""
+        if fp.isHoles:
+            import BOPTools.JoinFeatures
+            joinObj = BOPTools.JoinFeatures.makeCutout(name='Cutout')
+            joinObj.Base = objBase
+            joinObj.Tool = objTool
+            joinObj.Proxy.execute(joinObj)
+            joinObj.purgeTouched()
+            objBase.ViewObject.hide()
+            objTool.ViewObject.hide()
+            duct.append(joinObj.Shape)
+        else:
+            joinObj = None
+            duct.append(objBase.Shape)
+
         fp.Shape = Part.makeCompound(duct)
-        try:
-            FreeCAD.getDocument(str(FreeCAD.activeDocument().Name)).removeObject(j.Label)
-            FreeCAD.getDocument(str(FreeCAD.activeDocument().Name)).removeObject(objBase.Label)
-            FreeCAD.getDocument(str(FreeCAD.activeDocument().Name)).removeObject(objTool.Label)
-            FreeCAD.getDocument(str(FreeCAD.activeDocument().Name)).removeObject(objCover.Label)
-        except:
-            pass
-        #
+
+        """Delete all help shapes"""
+        EB_Auxiliaries.DeleteObjectbyLabel(objBase)
+        EB_Auxiliaries.DeleteObjectbyLabel(objTool)
+        EB_Auxiliaries.DeleteObjectbyLabel(objCover)
+        EB_Auxiliaries.DeleteObjectbyLabel(joinObj)
 
 
 
@@ -144,11 +151,12 @@ def GetWiringDuct(length = 100, width = 60, height =40):
     d.addProperty("App::PropertyFloat", "Height", "Engineering Base Information", "Device height").Height = float(height)
     d.addProperty("App::PropertyFloat", "Length", "Engineering Base Information", "Device length").Length = float(length)
     d.addProperty("App::PropertyBool", "isCover", "Engineering Base Information", "With cover").isCover = True
+    d.addProperty("App::PropertyBool", "isHoles", "Engineering Base Information", "With cover").isHoles = True
     WiringDuct(d)
     ViewProviderWiringDuct(d.ViewObject)
     d.ViewObject.ShapeColor = (0.67, 0.67, 0.50)
     FreeCAD.ActiveDocument.recompute()
-    return  d
+    return d
 
 
 if __name__ == "__main__":

@@ -39,6 +39,9 @@ class ViewProviderTerminalBlock:
         obj.Transparency = 30
         obj.ShapeColor = (0.67,0.67,0.50)
 
+    def getIcon(self):
+        return EB_Auxiliaries.workbenchFolderPath() + "\Icons\Electrical_Terminal.svg"
+
     def getDefaultDisplayMode(self):
         ''' Return the name of the default display mode. It must be defined in getDisplayModes. '''
         return "Flat Lines"

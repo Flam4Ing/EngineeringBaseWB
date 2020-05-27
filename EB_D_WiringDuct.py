@@ -152,6 +152,7 @@ def GetWiringDuct(length = 100, width = 60, height =40):
     d.addProperty("App::PropertyFloat", "Length", "Engineering Base Information", "Device length").Length = float(length)
     d.addProperty("App::PropertyBool", "isCover", "Engineering Base Information", "With cover").isCover = True
     d.addProperty("App::PropertyBool", "isHoles", "Engineering Base Information", "With cover").isHoles = True
+    d.addProperty("App::PropertyBool", "fixedPosition", "Engineering Base Information")
     WiringDuct(d)
     ViewProviderWiringDuct(d.ViewObject)
     d.ViewObject.ShapeColor = (0.67, 0.67, 0.50)

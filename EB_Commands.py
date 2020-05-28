@@ -157,7 +157,7 @@ class Clear_Console():
 
 class Get_DIN_Rail_TS35():
     def GetResources(self):
-        return {'Pixmap': EB_Auxiliaries.workbenchFolderPath() + "\Icons\TS35.png",
+        return {'Pixmap': EB_Auxiliaries.workbenchFolderPath() + "\Icons\DINrailTS35.svg",
                 'MenuText': "Get DIN rail TS35"}
 
     def Activated(self):

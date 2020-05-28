@@ -140,3 +140,26 @@ def FindEdgeInObject(anEdge,inObject):
                if e.Vertexes[-1].Point == anEdge.Vertexes[-1].Point:
                    return inObject.Shape.Edges.index(e) # we return the index of the edge in the edges list
     return None
+
+#------------------------------------------------------------------------------
+def SetFaceColour(obj, colour, facesBYareas, tolerance=1):
+    numfaces = len(obj.Shape.Faces)
+    """1 = 255
+    color numer 10 = (1/255) * 10
+    color numer 75 = (1/255) * 75"""
+    # glb = (1.0, 1.0, 0.0)  # yellow
+    # grn = (0., 1., 0.)  # green
+
+    # colors = [rgb for i in range(numfaces)]
+    defaultColour = obj.ViewObject.DiffuseColor[0]
+    colors = []
+    for i in obj.Shape.Faces:
+        col = defaultColour
+        for f in facesBYareas:
+            if i.Area > f - tolerance and i.Area < f + tolerance:
+                col = colour
+                break
+
+        colors.append(col)
+
+    obj.ViewObject.DiffuseColor = colors

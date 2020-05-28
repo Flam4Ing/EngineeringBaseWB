@@ -57,6 +57,8 @@ class ViewProviderDINRailTS35:
     def __init__(self, obj):
         ''' Set this object to the proxy object of the actual view provider '''
         obj.Proxy = self
+    def getIcon(self):
+        return EB_Auxiliaries.workbenchFolderPath() + "\Icons\DINrailTS35.svg"
 
     def getDefaultDisplayMode(self):
         ''' Return the name of the default display mode. It must be defined in getDisplayModes. '''

@@ -56,11 +56,11 @@ def scriptHotKeysPath():
 
 #------------------------------------------------------------------------------
 def TerminalBlocksPath():
-    return workbenchFolderPath() + "\\" + "TerminalBlocks"
+    return workbenchFolderPath() + "\\StepFiles\\" + "TerminalBlocks"
 
 #------------------------------------------------------------------------------
 def CableGlandsPath():
-    return workbenchFolderPath() + "\\" + "CableGlands"
+    return workbenchFolderPath() + "\\StepFiles\\" + "CableGlands"
 
 #------------------------------------------------------------------------------
 def RunCommand(fileName):

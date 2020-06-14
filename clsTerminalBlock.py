@@ -26,7 +26,7 @@ class TerminalBlock:
             tc.Placement.Base = FreeCAD.Vector(t.BoundBox.XLength*x,0,0)
             sh.append(tc)
         if len(fp.BMK) > 1:
-            textObj = clsEBObjectMaker.GetTextObj(fp.BMK)
+            textObj = clsEBObjectMaker.GetTextObj(fp.BMK, fp.BMKsize)
             textObj.Placement.Base = (fp.BMKpos + posText)
             textObj.Placement.Rotation = FreeCAD.Rotation(FreeCAD.Vector(0,0,1),fp.BMKrot)
             sh.append(textObj)

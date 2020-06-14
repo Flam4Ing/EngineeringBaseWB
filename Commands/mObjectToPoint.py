@@ -46,7 +46,9 @@ class SelObserverObjectToPoint:
             # Rot0 = FreeCAD.ActiveDocument.getObject(ObjA_Name).Placement.Rotation
             # #Rot0 = App.ActiveDocument.getObject(ObjB_Name).Placement.Rotation
             # MVector = Pos0 + Vector
+            FreeCAD.ActiveDocument.openTransaction("Move Object to Point")
             FreeCAD.ActiveDocument.getObject(ObjA_Name).Placement.Base = PointB
+            FreeCAD.ActiveDocument.commitTransaction()
             print("First object -" + ObjA_Name + "- is moved!")
             RemoveObservers()
             self.stack = []

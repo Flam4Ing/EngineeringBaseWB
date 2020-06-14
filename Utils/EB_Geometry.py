@@ -142,7 +142,7 @@ def FindEdgeInObject(anEdge,inObject):
     return None
 
 #------------------------------------------------------------------------------
-def SetFaceColour(obj, colour, facesBYareas, tolerance=1):
+def SetFaceColour(obj, colour, defaultColour, facesBYareas, tolerance=1):
     numfaces = len(obj.Shape.Faces)
     """1 = 255
     color numer 10 = (1/255) * 10
@@ -151,7 +151,8 @@ def SetFaceColour(obj, colour, facesBYareas, tolerance=1):
     # grn = (0., 1., 0.)  # green
 
     # colors = [rgb for i in range(numfaces)]
-    defaultColour = obj.ViewObject.DiffuseColor[0]
+    # defaultColour = obj.ViewObject.DiffuseColor[0]
+
     colors = []
     for i in obj.Shape.Faces:
         col = defaultColour

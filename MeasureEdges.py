@@ -38,3 +38,7 @@ class Get_MeassureEdges():
                     EB_Auxiliaries.MsgDialog("Length: " + str(length) + "mm")
 
 FreeCADGui.addCommand('Get_MeassureEdges', Get_MeassureEdges())
+
+if __name__ == "__main__":
+    m = Get_MeassureEdges()
+    m.Activated()

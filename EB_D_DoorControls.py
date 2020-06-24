@@ -108,3 +108,20 @@ def GetIndicatorLight():
     FreeCAD.ActiveDocument.recompute()
     return d
 
+def GetDoorSwitches():
+    pathToIndicatorLights = EB_Auxiliaries.workbenchFolderPath() + "\\StepFiles\\DoorControls\\Switches"
+    d = clsEBObjectMaker.GetEBObjectMaker("DoorSwitch")
+    d.Label = "DoorSwitch"
+    d.addProperty("App::PropertyEnumeration", "FileFrontPart", "Chose STEP File", "File for front part").FileFrontPart \
+        = GetMatchesFiles(pathToIndicatorLights, "FrontPart")
+    d.addProperty("App::PropertyEnumeration", "FileBackPart", "Chose STEP File", "File for back part").FileBackPart \
+        = GetMatchesFiles(pathToIndicatorLights, "BackPart")
+    d.addProperty("App::PropertyEnumeration", "FrontPartColour", "Chose STEP File",
+                  "File for front part").FrontPartColour \
+        = ["Green", "Red", "Yellow", "White"]
+    DoorControls(d, pathToIndicatorLights)
+    ViewProviderDoorControls(d.ViewObject)
+    FreeCADGui.Selection.clearSelection()
+    FreeCADGui.Selection.addSelection(d)
+    FreeCAD.ActiveDocument.recompute()
+    return d

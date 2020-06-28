@@ -164,3 +164,33 @@ def SetFaceColour(obj, colour, defaultColour, facesBYareas, tolerance=1):
         colors.append(col)
 
     obj.ViewObject.DiffuseColor = colors
+
+# ------------------------------------------------------------------------------
+def setObjColor(obj, color):
+    # set color for all faces of selected object
+    colorlist = []
+    for i in range(len(obj.Shape.Faces)):
+        colorlist.append(color)
+    print('[*] Object contains %d faces' % (len(colorlist),))
+    obj.ViewObject.DiffuseColor = colorlist
+
+#------------------------------------------------------------------------------
+
+def setColorOfSelectedFaces(sel, colorSelected, colorBase):
+    # faces can be selected with mouse
+    obj = sel.Object
+    # got all faces indexes
+    faceIdx = []
+    for item in sel.SubElementNames:
+        if item.startswith('Face'):
+            faceIdx.append(int(item[4:])-1)
+    print('[*] Object %s contains %d faces'%(obj.Name, len(faceIdx)))
+    # Loop over whole object faces, make list of colors
+    setColor = []
+    for idx in range(len(obj.Shape.Faces)):
+        if idx in faceIdx:
+            setColor.append(colorSelected)
+        else:
+            setColor.append(colorBase)
+    obj.ViewObject.DiffuseColor = setColor
+    print('[*] ... colored %d faces'%(len(setColor),))

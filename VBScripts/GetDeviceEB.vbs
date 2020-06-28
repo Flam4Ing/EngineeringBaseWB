@@ -9,6 +9,7 @@
 		Call WriteToUTF8(Folder , deviceProperties)
 'Test ohne EB installation
     ElseIf scriptArg = 2 Then
+		'MsgBox "Test ohne EB installation"
 		Folder = WScript.Arguments(0)
 		deviceProperties = TestOhneEB()
 		Call WriteToUTF8(Folder , deviceProperties)

@@ -6,8 +6,11 @@ import FreeCAD
 
 #------------------------------------------------------------------------------
 def testWithoutEB():
-    # Test workbench without Ingeneering Base installation
-    return True
+    # Test workbench without Ingeneering Base installations
+    if FreeCAD.testWithOutEB:
+        return True
+    else:
+        return False
     # return False
 
 
@@ -142,6 +145,7 @@ class SelectionGate(object):
         if str(sub).startswith(self.toSelect):
             return True
         return False
+#------------------------------------------------------------------------------
 
 #------------------------------------------------------------------------------
 def DeleteObjectbyLabel(obj):

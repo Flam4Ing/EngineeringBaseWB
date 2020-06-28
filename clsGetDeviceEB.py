@@ -46,6 +46,7 @@ class ViewProviderEBDevice:
         ''' Set this object to the proxy object of the actual view provider '''
         obj.Proxy = self
         obj.Transparency = 20
+
     def getIcon(self):
         return EB_Auxiliaries.workbenchFolderPath() + "\Icons\EB_Device.svg"
 
